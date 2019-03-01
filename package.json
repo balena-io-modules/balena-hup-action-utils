@@ -3,7 +3,6 @@
   "version": "1.0.0",
   "description": "Balena hostOS update validations & utilities",
   "main": "build/index.js",
-  "types": "lib/*.ts",
   "files": [
     "build/",
     "lib/"

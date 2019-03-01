@@ -3,6 +3,7 @@
     "module": "commonjs",
     "target": "es5",
     "outDir": "build",
+    "declaration": true,
     "importHelpers": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,
