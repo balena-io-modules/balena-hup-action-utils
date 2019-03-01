@@ -1,0 +1,58 @@
+{
+  "name": "balena-hup-action-utils",
+  "version": "1.0.0",
+  "description": "Balena hostOS update validations & utilities",
+  "main": "build/index.js",
+  "types": "lib/*.ts",
+  "files": [
+    "build/",
+    "lib/"
+  ],
+  "scripts": {
+    "build": "npm run clean && tsc --project .",
+    "clean": "rimraf dist/",
+    "lint": "resin-lint --typescript lib/ && tsc --noEmit --project .",
+    "prettify": "prettier --config ./node_modules/resin-lint/config/.prettierrc --write index.js \"lib/**/*.ts\" \"tests/**/*.ts\"",
+    "prepare": "npm run build",
+    "pretest": "npm run build && npm run lint",
+    "test:node": "mocha -r ts-node/register --reporter spec tests/**/*.spec.ts",
+    "test:browser": "karma start",
+    "test": "npm run test:node && npm run test:browser"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/balena-io-modules/balena-hup-action-utils.git"
+  },
+  "keywords": [
+    "balena",
+    "hup",
+    "host OS update"
+  ],
+  "author": "Thodoris Greasidis <thodoris@balena.io>",
+  "license": "Apache-2.0",
+  "bugs": {
+    "url": "https://github.com/balena-io-modules/balena-hup-action-utils/issues"
+  },
+  "homepage": "https://github.com/balena-io-modules/balena-hup-action-utils#readme",
+  "devDependencies": {
+    "@resin.io/types-mochainon": "^2.0.1",
+    "@types/mocha": "^5.2.6",
+    "balena-config-karma": "^2.3.1",
+    "husky": "^1.3.1",
+    "karma": "^3.1.4",
+    "lint-staged": "^8.1.4",
+    "mocha": "^3.5.3",
+    "mochainon": "^2.0.0",
+    "prettier": "^1.16.4",
+    "resin-lint": "^3.0.1",
+    "rimraf": "^2.6.3",
+    "ts-node": "^8.0.2",
+    "tslint": "^5.13.1",
+    "tslint-config-prettier": "^1.18.0",
+    "tslint-no-unused-expression-chai": "^0.1.4",
+    "typescript": "~3.0.0"
+  },
+  "dependencies": {
+    "resin-semver": "^1.5.0"
+  }
+}
