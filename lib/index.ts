@@ -15,8 +15,9 @@
 */
 
 import * as rSemver from 'resin-semver';
-import { actionsConfig } from './config';
-import { ActionName } from './types';
+import { actionsConfig as defaultActionsConfig } from './config';
+import { ActionName, ActionsConfig } from './types';
+export { actionsConfig } from './config';
 export * from './types';
 
 // ensure `version` is not a `dev` variant
@@ -28,105 +29,145 @@ const isDevVariant = (version: string): boolean => {
 	return parsed.build.concat(parsed.prerelease).indexOf('dev') >= 0;
 };
 
-//
-// Return resinhup type based on device type, current and target balenaOS versions
-// Currently available types are:
-//  - resinhup11
-//  - resinhup12
-//  - resinhup22
-//
-// For a more detailed list of supported actions per device type check actions/config.json
-//
-// Throws error in any of these cases:
-//  - Current or target versions are invalid
-//  - Current or target versions do not refer to production releases
-//  - Current and target versions imply a downgrade operation
-//  - Action is not supported by device type
-//
-export const getHUPActionType = (
-	deviceType: string,
-	currentVersion: string,
-	targetVersion: string,
-) => {
-	if (!rSemver.valid(currentVersion)) {
-		throw new Error('Invalid current balenaOS version');
+export class HUPActionHelper {
+	constructor(private actionsConfig: ActionsConfig = defaultActionsConfig) {}
+
+	/**
+	 * @summary Returns the resinhup type based on device type, current and target balenaOS versions
+	 * @name getHUPActionType
+	 * @public
+	 * @function
+	 * @memberof HUPActionHelper
+	 *
+	 * @description Returns the resinhup type based on device type, current and target balenaOS versions
+	 *
+	 *  Currently available types are:
+	 *   - resinhup11
+	 *   - resinhup12
+	 *   - resinhup22
+	 *
+	 *  For a more detailed list of supported actions per device type check config.ts
+	 *
+	 *  Throws error in any of these cases:
+	 *   - Current or target versions are invalid
+	 *   - Current or target versions do not refer to production releases
+	 *   - Current and target versions imply a downgrade operation
+	 *   - Action is not supported by device type
+	 *
+	 * @param {String} deviceType - device type slug
+	 * @param {String} currentVersion - the current semver balenaOS version on the device
+	 * @param {String} targetVersion - the target semver balenaOS version
+	 *
+	 * @returns {String}
+	 *
+	 * @example
+	 * hupActionHelper.getHUPActionType('raspberrypi3', '2.0.0+rev1.prod', '2.2.0+rev1.prod');
+	 */
+	getHUPActionType(
+		deviceType: string,
+		currentVersion: string,
+		targetVersion: string,
+	) {
+		if (!rSemver.valid(currentVersion)) {
+			throw new Error('Invalid current balenaOS version');
+		}
+
+		if (!rSemver.valid(targetVersion)) {
+			throw new Error('Invalid target balenaOS version');
+		}
+
+		if (
+			rSemver.prerelease(currentVersion) ||
+			rSemver.prerelease(targetVersion)
+		) {
+			throw new Error(
+				'Updates cannot be performed on pre-release balenaOS versions',
+			);
+		}
+
+		if (isDevVariant(currentVersion) || isDevVariant(targetVersion)) {
+			throw new Error(
+				'Updates cannot be performed on development balenaOS variants',
+			);
+		}
+
+		if (rSemver.lt(targetVersion, currentVersion)) {
+			throw new Error('OS downgrades are not allowed');
+		}
+
+		if (rSemver.compare(currentVersion, targetVersion) === 0) {
+			throw new Error('Current OS version matches Target OS version');
+		}
+
+		const fromMajor = rSemver.major(currentVersion);
+		const toMajor = rSemver.major(targetVersion);
+		const actionName = `resinhup${fromMajor}${toMajor}` as ActionName;
+
+		const { actionsConfig } = this;
+		const deviceSpecific = actionsConfig.deviceTypes[deviceType];
+
+		if (deviceSpecific == null || deviceSpecific[actionName] == null) {
+			throw new Error(
+				`This update request cannot be performed on '${deviceType}'`,
+			);
+		}
+
+		const {
+			minSourceVersion,
+			targetMajorVersion,
+			minTargetVersion,
+			maxTargetVersion,
+		} = {
+			...actionsConfig.actions[actionName],
+			...deviceSpecific[actionName],
+		};
+
+		if (rSemver.lt(currentVersion, minSourceVersion)) {
+			throw new Error(`Current OS version must be >= ${minSourceVersion}`);
+		}
+
+		if (rSemver.major(targetVersion) !== targetMajorVersion) {
+			throw new Error(
+				`Target OS version must be of major version ${targetMajorVersion}`,
+			);
+		}
+
+		if (rSemver.lt(targetVersion, minTargetVersion)) {
+			throw new Error(`Target OS version must be >= ${minTargetVersion}`);
+		}
+
+		if (maxTargetVersion && rSemver.gte(targetVersion, maxTargetVersion!)) {
+			throw new Error(`Target OS version must be < ${maxTargetVersion}`);
+		}
+
+		return actionName;
 	}
 
-	if (!rSemver.valid(targetVersion)) {
-		throw new Error('Invalid target balenaOS version');
+	/**
+	 * @summary Returns whether the provided device type supports OS updates between the current and target balenaOS versions
+	 * @name isSupportedOsUpdate
+	 * @public
+	 * @function
+	 * @memberof HUPActionHelper
+	 *
+	 * @param {String} deviceType - device type slug
+	 * @param {String} currentVersion - the current semver balenaOS version on the device
+	 * @param {String} targetVersion - the target semver balenaOS version
+	 *
+	 * @returns {Boolean}
+	 *
+	 * @example
+	 * hupActionHelper.isSupportedOsUpdate('raspberrypi3', '2.0.0+rev1.prod', '2.2.0+rev1.prod');
+	 */
+	isSupportedOsUpdate(
+		deviceType: string,
+		currentVersion: string,
+		targetVersion: string,
+	) {
+		try {
+			return !!this.getHUPActionType(deviceType, currentVersion, targetVersion);
+		} catch (err) {
+			return false;
+		}
 	}
-
-	if (rSemver.prerelease(currentVersion) || rSemver.prerelease(targetVersion)) {
-		throw new Error(
-			'Updates cannot be performed on pre-release balenaOS versions',
-		);
-	}
-
-	if (isDevVariant(currentVersion) || isDevVariant(targetVersion)) {
-		throw new Error(
-			'Updates cannot be performed on development balenaOS variants',
-		);
-	}
-
-	if (rSemver.lt(targetVersion, currentVersion)) {
-		throw new Error('OS downgrades are not allowed');
-	}
-
-	if (rSemver.compare(currentVersion, targetVersion) === 0) {
-		throw new Error('Current OS version matches Target OS version');
-	}
-
-	const fromMajor = rSemver.major(currentVersion);
-	const toMajor = rSemver.major(targetVersion);
-	const actionName = `resinhup${fromMajor}${toMajor}` as ActionName;
-
-	const deviceSpecific = actionsConfig.deviceTypes[deviceType];
-
-	if (deviceSpecific == null || deviceSpecific[actionName] == null) {
-		throw new Error(
-			`This update request cannot be performed on '${deviceType}'`,
-		);
-	}
-
-	const {
-		minSourceVersion,
-		targetMajorVersion,
-		minTargetVersion,
-		maxTargetVersion,
-	} = {
-		...actionsConfig.actions[actionName],
-		...deviceSpecific[actionName],
-	};
-
-	if (rSemver.lt(currentVersion, minSourceVersion)) {
-		throw new Error(`Current OS version must be >= ${minSourceVersion}`);
-	}
-
-	if (rSemver.major(targetVersion) !== targetMajorVersion) {
-		throw new Error(
-			`Target OS version must be of major version ${targetMajorVersion}`,
-		);
-	}
-
-	if (rSemver.lt(targetVersion, minTargetVersion)) {
-		throw new Error(`Target OS version must be >= ${minTargetVersion}`);
-	}
-
-	if (maxTargetVersion && rSemver.gte(targetVersion, maxTargetVersion!)) {
-		throw new Error(`Target OS version must be < ${maxTargetVersion}`);
-	}
-
-	return actionName;
-};
-
-export const isSupportedOsUpdate = (
-	deviceType: string,
-	currentVersion: string,
-	targetVersion: string,
-) => {
-	try {
-		return !!getHUPActionType(deviceType, currentVersion, targetVersion);
-	} catch (err) {
-		return false;
-	}
-};
+}

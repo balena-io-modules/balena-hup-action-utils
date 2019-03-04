@@ -25,6 +25,19 @@ Install `balena-hup-action-utils` by running:
 $ npm install --save balena-hup-action-utils
 ```
 
+Documentation
+-------------
+
+The module returns a class that you use to get an instance of the hup action helper.
+
+**Example**
+```js
+import { HUPActionHelper } from 'balena-hup-action-utils';
+const hupActionHelper = new HUPActionHelper();
+hupActionHelper.getHUPActionType('raspberrypi3', '2.0.0+rev1.prod', '2.2.0+rev1.prod');
+hupActionHelper.isSupportedOsUpdate('raspberrypi3', '2.0.0+rev1.prod', '2.2.0+rev1.prod');
+```
+
 Support
 -------
 
