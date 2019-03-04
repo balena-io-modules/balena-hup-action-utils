@@ -14,6 +14,7 @@
 	limitations under the License.
 */
 
+import includes = require('lodash/includes');
 import * as rSemver from 'resin-semver';
 import { actionsConfig as defaultActionsConfig } from './config';
 import { ActionName, ActionsConfig } from './types';
@@ -26,7 +27,7 @@ const isDevVariant = (version: string): boolean => {
 	if (parsed == null) {
 		return false;
 	}
-	return parsed.build.concat(parsed.prerelease).indexOf('dev') >= 0;
+	return includes(parsed.build.concat(parsed.prerelease), 'dev');
 };
 
 export class HUPActionHelper {
@@ -63,7 +64,7 @@ export class HUPActionHelper {
 	 * @example
 	 * hupActionHelper.getHUPActionType('raspberrypi3', '2.0.0+rev1.prod', '2.2.0+rev1.prod');
 	 */
-	getHUPActionType(
+	public getHUPActionType(
 		deviceType: string,
 		currentVersion: string,
 		targetVersion: string,
@@ -159,7 +160,7 @@ export class HUPActionHelper {
 	 * @example
 	 * hupActionHelper.isSupportedOsUpdate('raspberrypi3', '2.0.0+rev1.prod', '2.2.0+rev1.prod');
 	 */
-	isSupportedOsUpdate(
+	public isSupportedOsUpdate(
 		deviceType: string,
 		currentVersion: string,
 		targetVersion: string,
