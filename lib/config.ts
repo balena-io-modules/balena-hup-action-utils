@@ -93,6 +93,9 @@ export const actionsConfig: ActionsConfig = {
 		'beaglebone-pocket': {
 			resinhup22: {},
 		},
+		'cl-som-imx8': {
+			resinhup22: {},
+		},
 		fincm3: {
 			resinhup22: {},
 		},
@@ -100,6 +103,12 @@ export const actionsConfig: ActionsConfig = {
 			resinhup22: {},
 		},
 		'imx6ul-var-dart': {
+			resinhup22: {},
+		},
+		'imx7-var-som': {
+			resinhup22: {},
+		},
+		'imx8m-var-dart': {
 			resinhup22: {},
 		},
 		'intel-edison': {
@@ -123,10 +132,25 @@ export const actionsConfig: ActionsConfig = {
 				minSourceVersion: '2.7.4',
 			},
 		},
+		nitrogen6xq2g: {
+			resinhup22: {},
+		},
+		'npe-x500-m3': {
+			resinhup22: {},
+		},
+		'n510-tx2': {
+			resinhup22: {},
+		},
 		'odroid-c1': {
 			resinhup22: {},
 		},
 		'odroid-xu4': {
+			resinhup22: {},
+		},
+		'orange-pi-one': {
+			resinhup22: {},
+		},
+		'orange-pi-zero': {
 			resinhup22: {},
 		},
 		'orangepi-plus2': {
@@ -153,12 +177,18 @@ export const actionsConfig: ActionsConfig = {
 				minSourceVersion: '2.7.4',
 			},
 		},
+		'spacely-tx2': {
+			resinhup22: {},
+		},
 		ts4900: {
 			resinhup22: {
 				minSourceVersion: '2.4.1',
 			},
 		},
 		'up-board': {
+			resinhup22: {},
+		},
+		'var-som-mx6': {
 			resinhup22: {},
 		},
 	},
