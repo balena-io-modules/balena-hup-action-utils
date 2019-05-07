@@ -14,8 +14,8 @@
 	limitations under the License.
 */
 
+import * as bSemver from 'balena-semver';
 import includes = require('lodash/includes');
-import * as rSemver from 'resin-semver';
 import { actionsConfig as defaultActionsConfig } from './config';
 import { ActionName, ActionsConfig } from './types';
 export { actionsConfig } from './config';
@@ -23,7 +23,7 @@ export * from './types';
 
 // ensure `version` is not a `dev` variant
 const isDevVariant = (version: string): boolean => {
-	const parsed = rSemver.parse(version);
+	const parsed = bSemver.parse(version);
 	if (parsed == null) {
 		return false;
 	}
@@ -69,17 +69,17 @@ export class HUPActionHelper {
 		currentVersion: string,
 		targetVersion: string,
 	) {
-		if (!rSemver.valid(currentVersion)) {
+		if (!bSemver.valid(currentVersion)) {
 			throw new Error('Invalid current balenaOS version');
 		}
 
-		if (!rSemver.valid(targetVersion)) {
+		if (!bSemver.valid(targetVersion)) {
 			throw new Error('Invalid target balenaOS version');
 		}
 
 		if (
-			rSemver.prerelease(currentVersion) ||
-			rSemver.prerelease(targetVersion)
+			bSemver.prerelease(currentVersion) ||
+			bSemver.prerelease(targetVersion)
 		) {
 			throw new Error(
 				'Updates cannot be performed on pre-release balenaOS versions',
@@ -92,16 +92,16 @@ export class HUPActionHelper {
 			);
 		}
 
-		if (rSemver.lt(targetVersion, currentVersion)) {
+		if (bSemver.lt(targetVersion, currentVersion)) {
 			throw new Error('OS downgrades are not allowed');
 		}
 
-		if (rSemver.compare(currentVersion, targetVersion) === 0) {
+		if (bSemver.compare(currentVersion, targetVersion) === 0) {
 			throw new Error('Current OS version matches Target OS version');
 		}
 
-		const fromMajor = rSemver.major(currentVersion);
-		const toMajor = rSemver.major(targetVersion);
+		const fromMajor = bSemver.major(currentVersion);
+		const toMajor = bSemver.major(targetVersion);
 		const actionName = `resinhup${fromMajor}${toMajor}` as ActionName;
 
 		const { actionsConfig } = this;
@@ -123,21 +123,21 @@ export class HUPActionHelper {
 			...deviceSpecific[actionName],
 		};
 
-		if (rSemver.lt(currentVersion, minSourceVersion)) {
+		if (bSemver.lt(currentVersion, minSourceVersion)) {
 			throw new Error(`Current OS version must be >= ${minSourceVersion}`);
 		}
 
-		if (rSemver.major(targetVersion) !== targetMajorVersion) {
+		if (bSemver.major(targetVersion) !== targetMajorVersion) {
 			throw new Error(
 				`Target OS version must be of major version ${targetMajorVersion}`,
 			);
 		}
 
-		if (rSemver.lt(targetVersion, minTargetVersion)) {
+		if (bSemver.lt(targetVersion, minTargetVersion)) {
 			throw new Error(`Target OS version must be >= ${minTargetVersion}`);
 		}
 
-		if (maxTargetVersion && rSemver.gte(targetVersion, maxTargetVersion!)) {
+		if (maxTargetVersion && bSemver.gte(targetVersion, maxTargetVersion!)) {
 			throw new Error(`Target OS version must be < ${maxTargetVersion}`);
 		}
 
