@@ -10,14 +10,15 @@
   ],
   "scripts": {
     "build": "npm run clean && tsc --project .",
-    "clean": "rimraf dist/",
+    "clean": "rimraf build/",
     "lint": "resin-lint --typescript lib/ && tsc --noEmit --project .",
     "prettify": "prettier --config ./node_modules/resin-lint/config/.prettierrc --write index.js \"lib/**/*.ts\" \"tests/**/*.ts\"",
     "prepare": "npm run build",
     "pretest": "npm run build && npm run lint",
     "test:node": "mocha -r ts-node/register --reporter spec tests/**/*.spec.ts",
     "test:browser": "karma start",
-    "test": "npm run test:node && npm run test:browser"
+    "test:ts-compatibility": "npx typescript@~3.3.0 --noEmit --project ./tsconfig.dist.json",
+    "test": "npm run test:ts-compatibility && npm run test:node && npm run test:browser"
   },
   "repository": {
     "type": "git",
@@ -48,7 +49,7 @@
     "resin-lint": "^3.0.1",
     "rimraf": "^2.6.3",
     "ts-node": "^8.0.2",
-    "typescript": "~3.3.0"
+    "typescript": "^3.3.0"
   },
   "dependencies": {
     "balena-semver": "^2.0.0",
