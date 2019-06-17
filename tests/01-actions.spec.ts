@@ -117,15 +117,7 @@ describe('BalenaHupActionUtils', () => {
 				`This update request cannot be performed on 'non-hup-able-device-type'`,
 			);
 
-			expect(() =>
-				hupActionHelper.getHUPActionType(
-					'non-hup-able-device-type',
-					'2.9.6+rev2.prod',
-					'2.29.2+rev1.prod',
-				),
-			).to.throw(
-				`This update request cannot be performed on 'non-hup-able-device-type'`,
-			);
+			// On version 2.x and above all device types must be supported
 		});
 
 		describe('v1 -> v1', () => {
@@ -415,39 +407,41 @@ describe('BalenaHupActionUtils', () => {
 			});
 
 			it('Should return resinhup22 for supported v2 -> v2 hup versions', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
-					expect(
-						hupActionHelper.getHUPActionType(
-							deviceType,
-							'2.0.0+rev1.prod',
-							'2.2.0+rev1.prod',
-						),
-					).to.equal('resinhup22');
-					expect(
-						hupActionHelper.getHUPActionType(
-							deviceType,
-							'2.1.0+rev1.prod',
-							'2.2.0+rev1.prod',
-						),
-					).to.equal('resinhup22');
-					expect(
-						hupActionHelper.getHUPActionType(
-							deviceType,
-							'2.0.0+rev1.prod',
-							'2.29.2+rev1.prod',
-						),
-					).to.equal('resinhup22');
-					expect(
-						hupActionHelper.getHUPActionType(
-							deviceType,
-							'2.9.6+rev2.prod',
-							'2.29.2+rev1.prod',
-						),
-					).to.equal('resinhup22');
-				});
+				['raspberry-pi', 'raspberrypi3', 'beaglebone-pocket'].forEach(
+					deviceType => {
+						expect(
+							hupActionHelper.getHUPActionType(
+								deviceType,
+								'2.0.0+rev1.prod',
+								'2.2.0+rev1.prod',
+							),
+						).to.equal('resinhup22');
+						expect(
+							hupActionHelper.getHUPActionType(
+								deviceType,
+								'2.1.0+rev1.prod',
+								'2.2.0+rev1.prod',
+							),
+						).to.equal('resinhup22');
+						expect(
+							hupActionHelper.getHUPActionType(
+								deviceType,
+								'2.0.0+rev1.prod',
+								'2.29.2+rev1.prod',
+							),
+						).to.equal('resinhup22');
+						expect(
+							hupActionHelper.getHUPActionType(
+								deviceType,
+								'2.9.6+rev2.prod',
+								'2.29.2+rev1.prod',
+							),
+						).to.equal('resinhup22');
+					},
+				);
 			});
 
-			it('Should return resinhup22 for supported v1 -> v2 hup versions for special device types', () => {
+			it('Should return resinhup22 for supported v2 -> v2 hup versions for special device types', () => {
 				['jetson-tx2', 'skx2'].forEach(deviceType => {
 					expect(
 						hupActionHelper.getHUPActionType(

@@ -105,9 +105,13 @@ export class HUPActionHelper {
 		const actionName = `resinhup${fromMajor}${toMajor}` as ActionName;
 
 		const { actionsConfig } = this;
-		const deviceSpecific = actionsConfig.deviceTypes[deviceType];
+		const defaultActions = actionsConfig.deviceTypesDefaults;
+		const deviceActions = actionsConfig.deviceTypes[deviceType] || {};
 
-		if (deviceSpecific == null || deviceSpecific[actionName] == null) {
+		if (
+			defaultActions[actionName] == null &&
+			deviceActions[actionName] == null
+		) {
 			throw new Error(
 				`This update request cannot be performed on '${deviceType}'`,
 			);
@@ -120,7 +124,8 @@ export class HUPActionHelper {
 			maxTargetVersion,
 		} = {
 			...actionsConfig.actions[actionName],
-			...deviceSpecific[actionName],
+			...defaultActions[actionName],
+			...deviceActions[actionName],
 		};
 
 		if (bSemver.lt(currentVersion, minSourceVersion)) {
