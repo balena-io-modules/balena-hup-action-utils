@@ -10,7 +10,7 @@
   ],
   "scripts": {
     "build": "npm run clean && tsc --project .",
-    "clean": "rimraf dist/",
+    "clean": "rimraf build/",
     "lint": "resin-lint --typescript lib/ && tsc --noEmit --project .",
     "prettify": "prettier --config ./node_modules/resin-lint/config/.prettierrc --write index.js \"lib/**/*.ts\" \"tests/**/*.ts\"",
     "prepare": "npm run build",
