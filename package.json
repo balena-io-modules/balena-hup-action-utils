@@ -1,6 +1,6 @@
 {
   "name": "balena-hup-action-utils",
-  "version": "1.2.2",
+  "version": "2.0.0",
   "description": "Balena hostOS update validations & utilities",
   "main": "build/index.js",
   "types": "build/index.d.ts",
