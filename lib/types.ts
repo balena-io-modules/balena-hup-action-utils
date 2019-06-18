@@ -29,7 +29,8 @@ export interface ActionConfig {
 
 export interface ActionsConfig {
 	actions: { [K in ActionName]: ActionConfig };
-	deviceTypes: {
-		[key: string]: { [K in ActionName]?: Partial<ActionConfig> };
-	};
+	deviceTypesDefaults: { [K in ActionName]?: Partial<ActionConfig> };
+	deviceTypes: Partial<{
+		[deviceTypeSlug: string]: { [K in ActionName]?: Partial<ActionConfig> };
+	}>;
 }

@@ -105,13 +105,7 @@ describe('BalenaHupActionUtils', () => {
 				),
 			).to.equal(false);
 
-			expect(
-				hupActionHelper.isSupportedOsUpdate(
-					'non-hup-able-device-type',
-					'2.9.6+rev2.prod',
-					'2.29.2+rev1.prod',
-				),
-			).to.equal(false);
+			// On version 2.x and above all device types must be supported
 		});
 
 		describe('v1 -> v1', () => {
