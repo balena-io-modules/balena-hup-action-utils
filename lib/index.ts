@@ -21,13 +21,10 @@ import { ActionName, ActionsConfig } from './types';
 export { actionsConfig } from './config';
 export * from './types';
 
+type SemVer = NonNullable<ReturnType<typeof bSemver.parse>>;
 // ensure `version` is not a `dev` variant
-const isDevVariant = (version: string): boolean => {
-	const parsed = bSemver.parse(version);
-	if (parsed == null) {
-		return false;
-	}
-	return includes([...parsed.build, ...parsed.prerelease], 'dev');
+const isDevVariant = (semver: SemVer): boolean => {
+	return includes([...semver.build, ...semver.prerelease], 'dev');
 };
 
 export class HUPActionHelper {
@@ -45,7 +42,7 @@ export class HUPActionHelper {
 	 *  Currently available types are:
 	 *   - resinhup11
 	 *   - resinhup12
-	 *   - resinhup22
+	 *   - balenahup
 	 *
 	 *  For a more detailed list of supported actions per device type check config.ts
 	 *
@@ -69,24 +66,29 @@ export class HUPActionHelper {
 		currentVersion: string,
 		targetVersion: string,
 	) {
-		if (!bSemver.valid(currentVersion)) {
+		const currentVersionParsed = bSemver.parse(currentVersion);
+		if (currentVersionParsed == null) {
 			throw new Error('Invalid current balenaOS version');
 		}
 
-		if (!bSemver.valid(targetVersion)) {
+		const targetVersionParsed = bSemver.parse(targetVersion);
+		if (targetVersionParsed == null) {
 			throw new Error('Invalid target balenaOS version');
 		}
 
 		if (
-			bSemver.prerelease(currentVersion) ||
-			bSemver.prerelease(targetVersion)
+			currentVersionParsed.prerelease.length > 0 ||
+			targetVersionParsed.prerelease.length > 0
 		) {
 			throw new Error(
 				'Updates cannot be performed on pre-release balenaOS versions',
 			);
 		}
 
-		if (isDevVariant(currentVersion) || isDevVariant(targetVersion)) {
+		if (
+			isDevVariant(currentVersionParsed) ||
+			isDevVariant(targetVersionParsed)
+		) {
 			throw new Error(
 				'Updates cannot be performed on development balenaOS variants',
 			);
@@ -100,10 +102,25 @@ export class HUPActionHelper {
 			throw new Error('Current OS version matches Target OS version');
 		}
 
-		const fromMajor = bSemver.major(currentVersion);
-		const toMajor = bSemver.major(targetVersion);
-		const actionName = `resinhup${fromMajor}${toMajor}` as ActionName;
-
+		const fromMajor = currentVersionParsed.major;
+		const toMajor = targetVersionParsed.major;
+		let actionName: ActionName;
+		if (fromMajor === 1) {
+			switch (toMajor) {
+				case 1:
+					actionName = 'resinhup11';
+					break;
+				case 2:
+					actionName = 'resinhup12';
+					break;
+				default:
+					throw new Error(
+						`This update request cannot be performed from ${currentVersion} to ${targetVersion}`,
+					);
+			}
+		} else {
+			actionName = 'balenahup';
+		}
 		const { actionsConfig } = this;
 		const defaultActions = actionsConfig.deviceTypesDefaults;
 		const deviceActions = actionsConfig.deviceTypes[deviceType] || {};
@@ -132,7 +149,11 @@ export class HUPActionHelper {
 			throw new Error(`Current OS version must be >= ${minSourceVersion}`);
 		}
 
-		if (bSemver.major(targetVersion) !== targetMajorVersion) {
+		// If there's a major version constraint for the given action, take it into account
+		if (
+			targetMajorVersion &&
+			bSemver.major(targetVersion) !== targetMajorVersion
+		) {
 			throw new Error(
 				`Target OS version must be of major version ${targetMajorVersion}`,
 			);
