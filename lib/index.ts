@@ -27,7 +27,7 @@ const isDevVariant = (version: string): boolean => {
 	if (parsed == null) {
 		return false;
 	}
-	return includes(parsed.build.concat(parsed.prerelease), 'dev');
+	return includes([...parsed.build, ...parsed.prerelease], 'dev');
 };
 
 export class HUPActionHelper {
