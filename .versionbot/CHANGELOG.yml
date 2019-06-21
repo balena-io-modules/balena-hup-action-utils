@@ -1,0 +1,112 @@
+- commits:
+  - author: Gergely Imreh
+    body: |-
+      Likely due to some recent changes, the previous code was not compiling:
+      ```
+      lib/index.ts:30:38 - error TS2345: Argument of type 'readonly (string | number)[]' is not assignable to parameter of type 'string | ConcatArray<string>'.
+      Type 'readonly (string | number)[]' is not assignable to type 'string'.
+      30  return includes(parsed.build.concat(parsed.prerelease), 'dev');
+      ~~~~~~~~~~~~~~~~~
+      ```
+      Using the spread operator this can be resolved and the items are
+      concatenated correctly.
+    footers:
+      change-type: patch
+      signed-off-by: Gergely Imreh <gergely@balena.io>
+    hash: e311c1831102494e3e3cb743a1cd8919b5361a6a
+    subject: Fix function checking development releases
+  date: "2019-06-21T14:51:22Z"
+  version: 2.0.1
+- commits:
+  - author: Gergely Imreh
+    body: |-
+      The latest update method should be available for all device types,
+      so removing specific whitelisting as per device type.
+    footers:
+      change-type: major
+      signed-off-by: Gergely Imreh <gergely@balena.io>
+    hash: 37546aad0eace3138983129623e461c2faa867f3
+    subject: remove device whitelist
+  date: "2019-06-18T16:50:48Z"
+  version: 2.0.0
+- commits:
+  - author: Gergely Imreh
+    body: ""
+    footers:
+      change-type: patch
+      signed-off-by: Gergely Imreh <gergely@balena.io>
+    hash: 44d42bdf78e77f1922877f039faaa5ac926a6707
+    subject: Add CODEOWNERS
+  date: "2019-06-17T12:17:06Z"
+  version: 1.2.2
+- commits:
+  - author: Thodoris Greasidis
+    body: ""
+    footers:
+      change-type: patch
+      resolves: '#7'
+      signed-off-by: Thodoris Greasidis <thodoris@balena.io>
+    hash: 2d619da739e81435a7d09ccb65fe6504421af645
+    subject: Test the typings against the min TS supported version
+  - author: Thodoris Greasidis
+    body: ""
+    footers:
+      change-type: patch
+      signed-off-by: Thodoris Greasidis <thodoris@balena.io>
+    hash: ef98cc4c0d1a3a88505ebcaa423397f2e4518cf6
+    subject: Fix the target directory for the `clean` command
+  date: "2019-06-17T11:05:34Z"
+  version: 1.2.1
+- commits:
+  - author: Thodoris Greasidis
+    body: ""
+    footers:
+      change-type: minor
+      resolves: '#3'
+      signed-off-by: Thodoris Greasidis <thodoris@balena.io>
+    hash: 7a47a7406f185b15d1f35af115dc42c02f3d6ea7
+    subject: Upgrade resin-semver to balena-semver
+  date: "2019-05-07T18:33:34Z"
+  version: 1.2.0
+- commits:
+  - author: Gergely Imreh
+    body: ""
+    footers:
+      change-type: minor
+      signed-off-by: Gergely Imreh <gergely@balena.io>
+    hash: c530e321689d839acbea77dc5d4f73f3be1eec01
+    subject: 'config: add new device types'
+  date: "2019-04-02T09:20:19Z"
+  version: 1.1.0
+- commits:
+  - author: Thodoris Greasidis
+    body: ""
+    footers:
+      change-type: major
+      signed-off-by: Thodoris Greasidis <thodoris@balena.io>
+    hash: b0166956ead91cd9a07e2b6a243a7036321b713c
+    subject: Initial code commit
+  - author: Thodoris Greasidis
+    body: ""
+    footers:
+      signed-off-by: Thodoris Greasidis <thodoris@balena.io>
+    hash: 04595b1aa425f94abc1dc9beb005eee4992fd4f1
+    subject: Add typings
+  - author: Thodoris Greasidis
+    body: ""
+    hash: 6e00b376ac53a3ff063de47b3c7d2e8714563e58
+    subject: Export a class to allow injecting the actionsConfig
+  - author: Thodoris Greasidis
+    body: ""
+    footers:
+      signed-off-by: Thodoris Greasidis <thodoris@balena.io>
+    hash: a2bdc6ffe82e9c2e06bb91663aed9c5c7b206d48
+    subject: Add types package.json property
+  - author: Thodoris Greasidis
+    body: ""
+    footers:
+      signed-off-by: Thodoris Greasidis <thodoris@balena.io>
+    hash: 737718128eb1b664f5d161d182052f4400b3f344
+    subject: Review changes
+  date: "2019-03-08T15:15:48Z"
+  version: 1.0.0
