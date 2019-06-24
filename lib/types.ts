@@ -17,6 +17,8 @@
 export type ActionName = 'resinhup11' | 'resinhup12' | 'balenahup';
 
 export interface ActionConfig {
+	// the path of the relevant action script
+	path?: string;
 	// the minimum resinOS source version, that the upgrade can be done for, includes this version
 	minSourceVersion: string;
 	// the the major version of the resinOS target that the script applies to
