@@ -14,13 +14,13 @@
 	limitations under the License.
 */
 
-export type ActionName = 'resinhup11' | 'resinhup12' | 'resinhup22';
+export type ActionName = 'resinhup11' | 'resinhup12' | 'balenahup';
 
 export interface ActionConfig {
 	// the minimum resinOS source version, that the upgrade can be done for, includes this version
 	minSourceVersion: string;
 	// the the major version of the resinOS target that the script applies to
-	targetMajorVersion: number;
+	targetMajorVersion?: number;
 	// the minimum resinOS target version to upgrade to, includes this version
 	minTargetVersion: string;
 	// first resinOS version within the major version, that the updater can no longer target (update only to strictly lower versions than this)

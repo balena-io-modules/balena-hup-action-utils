@@ -523,7 +523,7 @@ describe('BalenaHupActionUtils', () => {
 			});
 		});
 
-		it('Should return false when attemptiong v2 -> v3 hup', () => {
+		it('Should return true when attemptiong v2 -> v3 hup', () => {
 			['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
 				expect(
 					hupActionHelper.isSupportedOsUpdate(
@@ -531,11 +531,11 @@ describe('BalenaHupActionUtils', () => {
 						'2.9.6+rev2.prod',
 						'3.0.1+rev1.prod',
 					),
-				).to.equal(false);
+				).to.equal(true);
 			});
 		});
 
-		it('Should return false when attemptiong v3 -> v3 hup', () => {
+		it('Should return true when attemptiong v3 -> v3 hup', () => {
 			['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
 				expect(
 					hupActionHelper.isSupportedOsUpdate(
@@ -543,7 +543,7 @@ describe('BalenaHupActionUtils', () => {
 						'3.0.0+rev1.prod',
 						'3.0.1+rev1.prod',
 					),
-				).to.equal(false);
+				).to.equal(true);
 			});
 		});
 	});

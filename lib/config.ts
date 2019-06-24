@@ -29,14 +29,13 @@ export const actionsConfig: ActionsConfig = {
 			minTargetVersion: '2.2.0+rev1',
 			maxTargetVersion: '2.5.1+rev1',
 		},
-		resinhup22: {
+		balenahup: {
 			minSourceVersion: '2.0.0+rev1',
-			targetMajorVersion: 2,
 			minTargetVersion: '2.2.0+rev1',
 		},
 	},
 	deviceTypesDefaults: {
-		resinhup22: {},
+		balenahup: {},
 	},
 	deviceTypes: {
 		'raspberry-pi': {
@@ -70,7 +69,7 @@ export const actionsConfig: ActionsConfig = {
 			},
 		},
 		'intel-edison': {
-			resinhup22: {
+			balenahup: {
 				minTargetVersion: '2.9.7+rev2',
 			},
 		},
@@ -79,27 +78,27 @@ export const actionsConfig: ActionsConfig = {
 			resinhup12: {},
 		},
 		'jetson-tx2': {
-			resinhup22: {
+			balenahup: {
 				minSourceVersion: '2.7.4',
 			},
 		},
 		qemux86: {
-			resinhup22: {
+			balenahup: {
 				minSourceVersion: '2.9.3',
 			},
 		},
 		'qemux86-64': {
-			resinhup22: {
+			balenahup: {
 				minSourceVersion: '2.9.3',
 			},
 		},
 		skx2: {
-			resinhup22: {
+			balenahup: {
 				minSourceVersion: '2.7.4',
 			},
 		},
 		ts4900: {
-			resinhup22: {
+			balenahup: {
 				minSourceVersion: '2.4.1',
 			},
 		},
