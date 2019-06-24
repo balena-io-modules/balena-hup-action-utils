@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update ActionConfig interface to be usable with downstream projects
+      hash: a47029b6e7d21f0239c08b57b8fead8fd0a9a8ec
+      body: ''
+      footer:
+        Change-type: minor
+        change-type: minor
+        Signed-off-by: Gergely Imreh <gergely@balena.io>
+        signed-off-by: Gergely Imreh <gergely@balena.io>
+      author: Gergely Imreh
+  version: 3.1.0
+  date: 2019-06-24T14:23:34.386Z
+- commits:
     - subject: Allow ESR version numbers to be handled through an overall HUP action
       hash: ecae911de5786a30c86a2d749ea04fcd141a037c
       body: |
