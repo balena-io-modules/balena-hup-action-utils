@@ -1,4 +1,19 @@
 - commits:
+    - subject: Allow ESR version numbers to be handled through an overall HUP action
+      hash: ecae911de5786a30c86a2d749ea04fcd141a037c
+      body: |
+        1.x->1.x and 1.x->2.x updates are handled the same way as before, but
+        2.x->2.x updates and 2.x->ESR / ESR->ESR updates (with version numbers
+        like `2019.07.0`) are unified into a single update action.
+      footer:
+        Change-type: major
+        change-type: major
+        Signed-off-by: Gergely Imreh <gergely@balena.io>
+        signed-off-by: Gergely Imreh <gergely@balena.io>
+      author: Gergely Imreh
+  version: 3.0.0
+  date: 2019-06-21T17:15:33.648Z
+- commits:
     - subject: Add machine readable CHANGELOG.yml
       hash: 09ec5cba31ed288cfa6480a8d316304cb6eb52aa
       body: ''
