@@ -1,4 +1,18 @@
 - commits:
+    - subject: 'balenahup: add support for "raspberrypi3-64" device type HUPs'
+      hash: 3cd891c198e5480686062b61441c96fe984f1a1a
+      body: ''
+      footer:
+        Connects-to: '#13'
+        connects-to: '#13'
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Matthew McGinn <matthew@balena.io>
+        signed-off-by: Matthew McGinn <matthew@balena.io>
+      author: Matthew McGinn
+  version: 3.0.1
+  date: 2019-06-27T22:22:40.471Z
+- commits:
     - subject: Allow ESR version numbers to be handled through an overall HUP action
       hash: ecae911de5786a30c86a2d749ea04fcd141a037c
       body: |
