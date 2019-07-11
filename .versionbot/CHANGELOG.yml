@@ -1,4 +1,16 @@
 - commits:
+    - subject: Allow development device updates.
+      hash: 0b601357dfe7094ab065f76ad17944d0e5be08e8
+      body: ''
+      footer:
+        Change-type: major
+        change-type: major
+        Signed-off-by: Gergely Imreh <gergely@balena.io>
+        signed-off-by: Gergely Imreh <gergely@balena.io>
+      author: Gergely Imreh
+  version: 4.0.0
+  date: 2019-07-11T15:12:45.224Z
+- commits:
     - subject: Allow ESR version numbers to be handled through an overall HUP action
       hash: ecae911de5786a30c86a2d749ea04fcd141a037c
       body: |
