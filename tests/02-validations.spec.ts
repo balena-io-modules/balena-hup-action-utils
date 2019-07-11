@@ -34,21 +34,28 @@ describe('BalenaHupActionUtils', () => {
 			).to.equal(false);
 		});
 
-		it('Should not allow .dev versions', () => {
+		it('Should allow .dev versions', () => {
 			expect(
 				hupActionHelper.isSupportedOsUpdate(
 					'raspberry-pi',
 					'2.9.6+rev2.dev',
 					'2.29.2+rev1.prod',
 				),
-			).to.equal(false);
+			).to.equal(true);
 			expect(
 				hupActionHelper.isSupportedOsUpdate(
 					'raspberry-pi',
 					'2.9.6+rev2.prod',
 					'2.29.2+rev1.dev',
 				),
-			).to.equal(false);
+			).to.equal(true);
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'raspberry-pi',
+					'2.9.6+rev2.dev',
+					'2.29.2+rev1.dev',
+				),
+			).to.equal(true);
 		});
 
 		it('Should not allow pre-release versions', () => {

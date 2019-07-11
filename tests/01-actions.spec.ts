@@ -34,25 +34,28 @@ describe('BalenaHupActionUtils', () => {
 			).to.throw('Invalid target balenaOS version');
 		});
 
-		it('Should not allow .dev versions', () => {
-			expect(() =>
+		it('Should allow .dev versions', () => {
+			expect(
 				hupActionHelper.getHUPActionType(
 					'raspberry-pi',
 					'2.9.6+rev2.dev',
 					'2.29.2+rev1.prod',
 				),
-			).to.throw(
-				'Updates cannot be performed on development balenaOS variants',
-			);
-			expect(() =>
+			).to.equal('balenahup');
+			expect(
 				hupActionHelper.getHUPActionType(
 					'raspberry-pi',
 					'2.9.6+rev2.prod',
 					'2.29.2+rev1.dev',
 				),
-			).to.throw(
-				'Updates cannot be performed on development balenaOS variants',
-			);
+			).to.equal('balenahup');
+			expect(
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.9.6+rev2.dev',
+					'2.29.2+rev1.dev',
+				),
+			).to.equal('balenahup');
 		});
 
 		it('Should not allow pre-release versions', () => {

@@ -15,17 +15,10 @@
 */
 
 import * as bSemver from 'balena-semver';
-import includes = require('lodash/includes');
 import { actionsConfig as defaultActionsConfig } from './config';
 import { ActionName, ActionsConfig } from './types';
 export { actionsConfig } from './config';
 export * from './types';
-
-type SemVer = NonNullable<ReturnType<typeof bSemver.parse>>;
-// ensure `version` is not a `dev` variant
-const isDevVariant = (semver: SemVer): boolean => {
-	return includes([...semver.build, ...semver.prerelease], 'dev');
-};
 
 export class HUPActionHelper {
 	constructor(private actionsConfig: ActionsConfig = defaultActionsConfig) {}
@@ -48,7 +41,6 @@ export class HUPActionHelper {
 	 *
 	 *  Throws error in any of these cases:
 	 *   - Current or target versions are invalid
-	 *   - Current or target versions do not refer to production releases
 	 *   - Current and target versions imply a downgrade operation
 	 *   - Action is not supported by device type
 	 *
@@ -82,15 +74,6 @@ export class HUPActionHelper {
 		) {
 			throw new Error(
 				'Updates cannot be performed on pre-release balenaOS versions',
-			);
-		}
-
-		if (
-			isDevVariant(currentVersionParsed) ||
-			isDevVariant(targetVersionParsed)
-		) {
-			throw new Error(
-				'Updates cannot be performed on development balenaOS variants',
 			);
 		}
 
