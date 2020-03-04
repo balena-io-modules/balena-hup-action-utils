@@ -1,4 +1,14 @@
 - commits:
+    - subject: Bump TypeScript compatibility to 3.8 to fix tests on Alpine
+      hash: 6fb27a530a34b25df79ab04fc8529a22272d917f
+      body: ''
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+  version: 4.0.0
+  date: 2020-03-04T17:55:14.515Z
+- commits:
     - subject: Allow ESR version numbers to be handled through an overall HUP action
       hash: ecae911de5786a30c86a2d749ea04fcd141a037c
       body: |
