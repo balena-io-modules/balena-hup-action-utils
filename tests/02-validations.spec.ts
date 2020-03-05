@@ -511,7 +511,7 @@ describe('BalenaHupActionUtils', () => {
 			});
 		});
 
-		it('Should return false when attemptiong v1 -> v3 hup', () => {
+		it('Should return false when attempting v1 -> v3 hup', () => {
 			['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
 				expect(
 					hupActionHelper.isSupportedOsUpdate(
@@ -523,7 +523,7 @@ describe('BalenaHupActionUtils', () => {
 			});
 		});
 
-		it('Should return true when attemptiong v2 -> v3 hup', () => {
+		it('Should return true when attempting v2 -> v3 hup', () => {
 			['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
 				expect(
 					hupActionHelper.isSupportedOsUpdate(
@@ -535,7 +535,7 @@ describe('BalenaHupActionUtils', () => {
 			});
 		});
 
-		it('Should return true when attemptiong v3 -> v3 hup', () => {
+		it('Should return true when attempting v3 -> v3 hup', () => {
 			['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
 				expect(
 					hupActionHelper.isSupportedOsUpdate(

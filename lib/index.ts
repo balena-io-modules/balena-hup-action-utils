@@ -48,7 +48,7 @@ export class HUPActionHelper {
 	 *
 	 *  Throws error in any of these cases:
 	 *   - Current or target versions are invalid
-	 *   - Current or target versions do not refer to production releases
+	 *   - Current or target versions do not match in dev/prod type
 	 *   - Current and target versions imply a downgrade operation
 	 *   - Action is not supported by device type
 	 *
@@ -86,11 +86,10 @@ export class HUPActionHelper {
 		}
 
 		if (
-			isDevVariant(currentVersionParsed) ||
-			isDevVariant(targetVersionParsed)
+			isDevVariant(currentVersionParsed) !== isDevVariant(targetVersionParsed)
 		) {
 			throw new Error(
-				'Updates cannot be performed on development balenaOS variants',
+				'Updates cannot be performed between development and production balenaOS variants',
 			);
 		}
 
