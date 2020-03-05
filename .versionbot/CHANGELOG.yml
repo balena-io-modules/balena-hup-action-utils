@@ -1,4 +1,16 @@
 - commits:
+    - subject: 'meta: update CODEOWNERS'
+      hash: f6d1a32b9e7f608b5ec88436d78ddc32872537bc
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Matthew McGinn <matthew@balena.io>
+        signed-off-by: Matthew McGinn <matthew@balena.io>
+      author: Matthew McGinn
+  version: 3.0.2
+  date: 2020-03-05T13:11:22.179Z
+- commits:
     - subject: Disable TypeScript compatibility check to unblock from balenaCI error
       hash: 617764adc235c4f454402432f55b421df145437c
       body: |
