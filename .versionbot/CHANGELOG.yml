@@ -1,4 +1,17 @@
 - commits:
+    - subject: Disable TypeScript compatibility check to unblock from balenaCI error
+      hash: 617764adc235c4f454402432f55b421df145437c
+      body: |
+        Opened #20 to not forget to re-enable this.
+      footer:
+        See: 'https://github.com/balena-io-modules/balena-hup-action-utils/issues/20'
+        see: 'https://github.com/balena-io-modules/balena-hup-action-utils/issues/20'
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 3.0.1
+  date: 2020-03-04T18:21:42.643Z
+- commits:
     - subject: Allow ESR version numbers to be handled through an overall HUP action
       hash: ecae911de5786a30c86a2d749ea04fcd141a037c
       body: |
