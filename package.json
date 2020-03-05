@@ -17,7 +17,7 @@
     "pretest": "npm run build && npm run lint",
     "test:node": "mocha -r ts-node/register --reporter spec tests/**/*.spec.ts",
     "test:browser": "karma start",
-    "test:ts-compatibility": "npx typescript@~3.3.0 --noEmit --project ./tsconfig.dist.json",
+    "test:ts-compatibility": "npx typescript@~3.3.0 --noEmit --project ./tsconfig.dist.json ; echo \"Re-enable the ts-compatibility check, once npm v6.11.0 is on balenaCI\"",
     "test": "npm run test:ts-compatibility && npm run test:node && npm run test:browser"
   },
   "repository": {
