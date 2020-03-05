@@ -1,4 +1,27 @@
 - commits:
+    - subject: 'meta: bump typescript version to 3.8.3'
+      hash: a2cfd9d9cf9bc12231a1eee542d4ba4178b659e5
+      body: ''
+      footer:
+        Signed-off-by: Matthew McGinn <matthew@balena.io>
+        signed-off-by: Matthew McGinn <matthew@balena.io>
+        Change-type: major
+        change-type: major
+      author: Matthew McGinn
+    - subject: allow dev updates but prevent x-updates
+      hash: b647e50b3a2de8dbca34fdd45c87ef164172b204
+      body: ''
+      footer:
+        Connects-to: 'https://github.com/balena-io/balena-proxy/pull/448'
+        connects-to: 'https://github.com/balena-io/balena-proxy/pull/448'
+        Change-type: major
+        change-type: major
+        Signed-off-by: Matthew McGinn <matthew@balena.io>
+        signed-off-by: Matthew McGinn <matthew@balena.io>
+      author: Matthew McGinn
+  version: 4.0.0
+  date: 2020-03-05T13:37:32.513Z
+- commits:
     - subject: 'meta: update CODEOWNERS'
       hash: f6d1a32b9e7f608b5ec88436d78ddc32872537bc
       body: ''
