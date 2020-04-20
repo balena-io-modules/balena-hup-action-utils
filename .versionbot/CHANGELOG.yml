@@ -1,4 +1,14 @@
 - commits:
+    - subject: Remove lodash dependency
+      hash: 56a07a562ae0d8444de94bf8a6478b0349159308
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+  version: 4.0.1
+  date: 2020-04-20T15:25:49.374Z
+- commits:
     - subject: 'meta: bump typescript version to 3.8.3'
       hash: a2cfd9d9cf9bc12231a1eee542d4ba4178b659e5
       body: ''
