@@ -15,7 +15,6 @@
 */
 
 import * as bSemver from 'balena-semver';
-import includes = require('lodash/includes');
 import { actionsConfig as defaultActionsConfig } from './config';
 import { ActionName, ActionsConfig } from './types';
 export { actionsConfig } from './config';
@@ -24,7 +23,7 @@ export * from './types';
 type SemVer = NonNullable<ReturnType<typeof bSemver.parse>>;
 // ensure `version` is not a `dev` variant
 const isDevVariant = (semver: SemVer): boolean => {
-	return includes([...semver.build, ...semver.prerelease], 'dev');
+	return [...semver.build, ...semver.prerelease].includes('dev');
 };
 
 export class HUPActionHelper {
