@@ -110,7 +110,7 @@ describe('BalenaHupActionUtils', () => {
 
 		describe('v1 -> v1', () => {
 			it('Should return false when hup is not supported', () => {
-				['artik530', 'beaglebone-pocket'].forEach(deviceType => {
+				['artik530', 'beaglebone-pocket'].forEach((deviceType) => {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(deviceType, '1.7.0', '1.26.0'),
 					).to.equal(false);
@@ -121,7 +121,7 @@ describe('BalenaHupActionUtils', () => {
 			});
 
 			it('Should return false when hup between the provided versions is not supported', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
+				['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(deviceType, '1.7.0', '1.26.0'),
 					).to.equal(false);
@@ -132,7 +132,7 @@ describe('BalenaHupActionUtils', () => {
 			});
 
 			it('Should return true when device specific v1 -> v1 hup is supported', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
+				['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(deviceType, '1.8.0', '1.26.0'),
 					).to.equal(true);
@@ -148,7 +148,7 @@ describe('BalenaHupActionUtils', () => {
 
 		describe('v1 -> v2', () => {
 			it('Should return false when hup is not supported', () => {
-				['artik530'].forEach(deviceType => {
+				['artik530'].forEach((deviceType) => {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
@@ -203,7 +203,7 @@ describe('BalenaHupActionUtils', () => {
 			});
 
 			it('Should return false when hup between the provided versions is not supported', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
+				['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
@@ -250,7 +250,7 @@ describe('BalenaHupActionUtils', () => {
 			});
 
 			it('Should return false when hup between the provided versions is not supported for special device types', () => {
-				SPECIAL_BEAGLEBONE_DEVICES.forEach(deviceType => {
+				SPECIAL_BEAGLEBONE_DEVICES.forEach((deviceType) => {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
@@ -311,7 +311,7 @@ describe('BalenaHupActionUtils', () => {
 			});
 
 			it('Should return true for supported hup versions', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
+				['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
@@ -358,7 +358,7 @@ describe('BalenaHupActionUtils', () => {
 			});
 
 			it('Should return true for supported hup versions for special device types', () => {
-				SPECIAL_BEAGLEBONE_DEVICES.forEach(deviceType => {
+				SPECIAL_BEAGLEBONE_DEVICES.forEach((deviceType) => {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
@@ -386,7 +386,7 @@ describe('BalenaHupActionUtils', () => {
 
 		describe('v2 -> v2', () => {
 			it('Should return false when hup between the provided versions is not supported', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
+				['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
@@ -412,7 +412,7 @@ describe('BalenaHupActionUtils', () => {
 			});
 
 			it('Should return false when hup between the provided versions is not supported for special device types', () => {
-				['jetson-tx2', 'skx2'].forEach(deviceType => {
+				['jetson-tx2', 'skx2'].forEach((deviceType) => {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
@@ -445,7 +445,7 @@ describe('BalenaHupActionUtils', () => {
 			});
 
 			it('Should return true for supported v2 -> v2 hup versions', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
+				['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
@@ -478,7 +478,7 @@ describe('BalenaHupActionUtils', () => {
 			});
 
 			it('Should return true for supported v1 -> v2 hup versions for special device types', () => {
-				['jetson-tx2', 'skx2'].forEach(deviceType => {
+				['jetson-tx2', 'skx2'].forEach((deviceType) => {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
@@ -512,7 +512,7 @@ describe('BalenaHupActionUtils', () => {
 		});
 
 		it('Should return false when attempting v1 -> v3 hup', () => {
-			['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
+			['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
 				expect(
 					hupActionHelper.isSupportedOsUpdate(
 						deviceType,
@@ -524,7 +524,7 @@ describe('BalenaHupActionUtils', () => {
 		});
 
 		it('Should return true when attempting v2 -> v3 hup', () => {
-			['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
+			['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
 				expect(
 					hupActionHelper.isSupportedOsUpdate(
 						deviceType,
@@ -536,7 +536,7 @@ describe('BalenaHupActionUtils', () => {
 		});
 
 		it('Should return true when attempting v3 -> v3 hup', () => {
-			['raspberry-pi', 'raspberrypi3'].forEach(deviceType => {
+			['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
 				expect(
 					hupActionHelper.isSupportedOsUpdate(
 						deviceType,
