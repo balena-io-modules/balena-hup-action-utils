@@ -36,20 +36,21 @@
   },
   "homepage": "https://github.com/balena-io-modules/balena-hup-action-utils#readme",
   "devDependencies": {
-    "@balena/lint": "^5.0.4",
+    "@balena/lint": "^5.1.0",
     "@resin.io/types-mochainon": "^2.0.1",
     "@types/mocha": "^5.2.6",
     "balena-config-karma": "^2.3.1",
     "husky": "^4.2.5",
     "karma": "^3.1.4",
-    "lint-staged": "^10.1.6",
+    "lint-staged": "^10.2.11",
     "mocha": "^3.5.3",
     "mochainon": "^2.0.0",
     "rimraf": "^3.0.2",
-    "ts-node": "^8.0.2",
-    "typescript": "^3.8.3"
+    "ts-node": "^8.10.2",
+    "typescript": "^3.9.6"
   },
   "dependencies": {
-    "balena-semver": "^2.0.0"
+    "balena-semver": "^2.0.0",
+    "tslib": "^2.0.0"
   }
 }
