@@ -1,4 +1,14 @@
 - commits:
+    - subject: Add explicit tslib dependency
+      hash: e73d52a7b26aaa269710b9475fed6c1e8376a534
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Pagan Gazzard
+  version: 4.0.2
+  date: 2020-07-03T18:45:21.158Z
+- commits:
     - subject: Update dev dependencies
       hash: ec7eb7440cabf34521a0695382b4a4af209f3f3a
       body: ''
