@@ -1,4 +1,14 @@
 - commits:
+    - subject: Delete .github directory
+      hash: 6f4e2960918c8c63664a3c384f893124647f12a7
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: dfunckt
+  version: 4.0.3
+  date: 2021-06-30T21:12:41.488Z
+- commits:
     - subject: Add explicit tslib dependency
       hash: e73d52a7b26aaa269710b9475fed6c1e8376a534
       body: ''
