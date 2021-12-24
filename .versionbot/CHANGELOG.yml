@@ -1,4 +1,35 @@
 - commits:
+    - subject: Update Typescript to 4.5
+      hash: 0432ac1d66265111a2eb174da2fceb963f6ae16a
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+    - subject: Update dev dependencies
+      hash: 2387cdb4cee0d7dd270210edf15217db1a37b995
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+    - subject: 'tests: Stop using mochainon'
+      hash: 5d056d1d337475529c2706c4e8978d3a83704ad6
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+    - subject: Update balena-config-karma to ^3.0.0
+      hash: 5c4f97a41ba008b82653dac13d950c1890b19b87
+      body: ''
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+  version: 4.0.4
+  date: 2021-12-24T17:17:46.252Z
+- commits:
     - subject: Delete .github directory
       hash: 6f4e2960918c8c63664a3c384f893124647f12a7
       body: ''
