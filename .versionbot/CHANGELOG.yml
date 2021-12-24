@@ -1,4 +1,20 @@
 - commits:
+    - subject: Allow upgrading to unified OS releases
+      hash: b4d83e661bcd1dbe39bea0d7890652ae47a35632
+      body: ''
+      footer:
+        Change-type: minor
+        change-type: minor
+        See: >-
+          https://jel.ly.fish/improvement-combine-os-variants-0d96399a-660b-4d38-adca-f661378cb86e
+        see: >-
+          https://jel.ly.fish/improvement-combine-os-variants-0d96399a-660b-4d38-adca-f661378cb86e
+        Signed-off-by: Thodoris Greasidis <thodoris@balena.io>
+        signed-off-by: Thodoris Greasidis <thodoris@balena.io>
+      author: Thodoris Greasidis
+  version: 4.1.0
+  date: 2021-12-24T17:29:43.542Z
+- commits:
     - subject: Update Typescript to 4.5
       hash: 0432ac1d66265111a2eb174da2fceb963f6ae16a
       body: ''
