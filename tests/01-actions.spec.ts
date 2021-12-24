@@ -1,7 +1,5 @@
-import { chai } from 'mochainon';
+import { expect } from 'chai';
 import { HUPActionHelper } from '../lib/index';
-
-const { expect } = chai;
 
 const SPECIAL_BEAGLEBONE_DEVICES = [
 	'beaglebone-black',
