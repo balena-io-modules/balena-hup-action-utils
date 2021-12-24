@@ -21,9 +21,10 @@ export { actionsConfig } from './config';
 export * from './types';
 
 type SemVer = NonNullable<ReturnType<typeof bSemver.parse>>;
-// ensure `version` is not a `dev` variant
-const isDevVariant = (semver: SemVer): boolean => {
-	return [...semver.build, ...semver.prerelease].includes('dev');
+
+const getVariant = (semver: SemVer) => {
+	const semverExtraParts = [...semver.build, ...semver.prerelease];
+	return ['dev', 'prod'].find((variant) => semverExtraParts.includes(variant));
 };
 
 export class HUPActionHelper {
@@ -84,8 +85,12 @@ export class HUPActionHelper {
 			);
 		}
 
+		const currentVariant = getVariant(currentVersionParsed);
+		const targetVariant = getVariant(targetVersionParsed);
 		if (
-			isDevVariant(currentVersionParsed) !== isDevVariant(targetVersionParsed)
+			targetVariant != null &&
+			// Prefer checking only for dev
+			(currentVariant === 'dev') !== (targetVariant === 'dev')
 		) {
 			throw new Error(
 				'Updates cannot be performed between development and production balenaOS variants',
