@@ -32,7 +32,7 @@ describe('BalenaHupActionUtils', () => {
 			).to.throw('Invalid target balenaOS version');
 		});
 
-		it('Should not allow .dev <-> .prod versions', () => {
+		it('Should not allow upgrades different .dev/.prod variants', () => {
 			expect(() =>
 				hupActionHelper.getHUPActionType(
 					'raspberry-pi',
@@ -52,6 +52,7 @@ describe('BalenaHupActionUtils', () => {
 				'Updates cannot be performed between development and production balenaOS variants',
 			);
 		});
+
 		it('Should allow .dev version updates', () => {
 			expect(
 				hupActionHelper.getHUPActionType(
@@ -61,6 +62,40 @@ describe('BalenaHupActionUtils', () => {
 				),
 			).to.equal('balenahup');
 		});
+
+		it('Should allow upgrades from .prod versions to unified', () => {
+			expect(
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.29.2+rev1.prod',
+					'2.88.4',
+				),
+			).to.equal('balenahup');
+		});
+
+		it('Should allow upgrades from .dev versions to unified', () => {
+			expect(
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.29.2+rev1.dev',
+					'2.88.4',
+				),
+			).to.equal('balenahup');
+		});
+
+		it('Should allow upgrades between unified OS versions', () => {
+			expect(
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.88.4',
+					'2.88.4+rev1',
+				),
+			).to.equal('balenahup');
+			expect(
+				hupActionHelper.getHUPActionType('raspberry-pi', '2.88.4', '2.88.5'),
+			).to.equal('balenahup');
+		});
+
 		it('Should not allow pre-release versions', () => {
 			expect(() =>
 				hupActionHelper.getHUPActionType(
