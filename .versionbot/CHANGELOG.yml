@@ -1,14 +1,25 @@
 - commits:
+    - subject: Bump karma to v6
+      hash: 76cb56e651c47958d271919e89e774438027d4cf
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Thodoris Greasidis <thodoris@balena.io>
+        signed-off-by: Thodoris Greasidis <thodoris@balena.io>
+      author: Thodoris Greasidis
+  version: 4.1.1
+  title: "'Bump karma to v6'"
+  date: 2022-04-09T20:24:15.243Z
+- commits:
     - subject: Allow upgrading to unified OS releases
       hash: b4d83e661bcd1dbe39bea0d7890652ae47a35632
-      body: ''
+      body: ""
       footer:
         Change-type: minor
         change-type: minor
-        See: >-
-          https://jel.ly.fish/improvement-combine-os-variants-0d96399a-660b-4d38-adca-f661378cb86e
-        see: >-
-          https://jel.ly.fish/improvement-combine-os-variants-0d96399a-660b-4d38-adca-f661378cb86e
+        See: https://jel.ly.fish/improvement-combine-os-variants-0d96399a-660b-4d38-adca-f661378cb86e
+        see: https://jel.ly.fish/improvement-combine-os-variants-0d96399a-660b-4d38-adca-f661378cb86e
         Signed-off-by: Thodoris Greasidis <thodoris@balena.io>
         signed-off-by: Thodoris Greasidis <thodoris@balena.io>
       author: Thodoris Greasidis
@@ -17,28 +28,28 @@
 - commits:
     - subject: Update Typescript to 4.5
       hash: 0432ac1d66265111a2eb174da2fceb963f6ae16a
-      body: ''
+      body: ""
       footer:
         Change-type: patch
         change-type: patch
       author: Thodoris Greasidis
     - subject: Update dev dependencies
       hash: 2387cdb4cee0d7dd270210edf15217db1a37b995
-      body: ''
+      body: ""
       footer:
         Change-type: patch
         change-type: patch
       author: Thodoris Greasidis
-    - subject: 'tests: Stop using mochainon'
+    - subject: "tests: Stop using mochainon"
       hash: 5d056d1d337475529c2706c4e8978d3a83704ad6
-      body: ''
+      body: ""
       footer:
         Change-type: patch
         change-type: patch
       author: Thodoris Greasidis
     - subject: Update balena-config-karma to ^3.0.0
       hash: 5c4f97a41ba008b82653dac13d950c1890b19b87
-      body: ''
+      body: ""
       footer:
         Change-type: patch
         change-type: patch
@@ -48,7 +59,7 @@
 - commits:
     - subject: Delete .github directory
       hash: 6f4e2960918c8c63664a3c384f893124647f12a7
-      body: ''
+      body: ""
       footer:
         Change-type: patch
         change-type: patch
@@ -58,7 +69,7 @@
 - commits:
     - subject: Add explicit tslib dependency
       hash: e73d52a7b26aaa269710b9475fed6c1e8376a534
-      body: ''
+      body: ""
       footer:
         Change-type: patch
         change-type: patch
@@ -68,14 +79,14 @@
 - commits:
     - subject: Update dev dependencies
       hash: ec7eb7440cabf34521a0695382b4a4af209f3f3a
-      body: ''
+      body: ""
       footer:
         Change-type: patch
         change-type: patch
       author: Pagan Gazzard
     - subject: Remove lodash dependency
       hash: 56a07a562ae0d8444de94bf8a6478b0349159308
-      body: ''
+      body: ""
       footer:
         Change-type: patch
         change-type: patch
@@ -83,9 +94,9 @@
   version: 4.0.1
   date: 2020-04-20T15:43:46.552Z
 - commits:
-    - subject: 'meta: bump typescript version to 3.8.3'
+    - subject: "meta: bump typescript version to 3.8.3"
       hash: a2cfd9d9cf9bc12231a1eee542d4ba4178b659e5
-      body: ''
+      body: ""
       footer:
         Signed-off-by: Matthew McGinn <matthew@balena.io>
         signed-off-by: Matthew McGinn <matthew@balena.io>
@@ -94,10 +105,10 @@
       author: Matthew McGinn
     - subject: allow dev updates but prevent x-updates
       hash: b647e50b3a2de8dbca34fdd45c87ef164172b204
-      body: ''
+      body: ""
       footer:
-        Connects-to: 'https://github.com/balena-io/balena-proxy/pull/448'
-        connects-to: 'https://github.com/balena-io/balena-proxy/pull/448'
+        Connects-to: https://github.com/balena-io/balena-proxy/pull/448
+        connects-to: https://github.com/balena-io/balena-proxy/pull/448
         Change-type: major
         change-type: major
         Signed-off-by: Matthew McGinn <matthew@balena.io>
@@ -106,9 +117,9 @@
   version: 4.0.0
   date: 2020-03-05T13:37:32.513Z
 - commits:
-    - subject: 'meta: update CODEOWNERS'
+    - subject: "meta: update CODEOWNERS"
       hash: f6d1a32b9e7f608b5ec88436d78ddc32872537bc
-      body: ''
+      body: ""
       footer:
         Change-type: patch
         change-type: patch
@@ -123,8 +134,8 @@
       body: |
         Opened #20 to not forget to re-enable this.
       footer:
-        See: 'https://github.com/balena-io-modules/balena-hup-action-utils/issues/20'
-        see: 'https://github.com/balena-io-modules/balena-hup-action-utils/issues/20'
+        See: https://github.com/balena-io-modules/balena-hup-action-utils/issues/20
+        see: https://github.com/balena-io-modules/balena-hup-action-utils/issues/20
         Change-type: patch
         change-type: patch
       author: Thodoris Greasidis
@@ -148,7 +159,7 @@
 - commits:
     - subject: Add machine readable CHANGELOG.yml
       hash: 09ec5cba31ed288cfa6480a8d316304cb6eb52aa
-      body: ''
+      body: ""
       footer:
         Change-type: patch
         change-type: patch
@@ -164,9 +175,7 @@
 
         ```
 
-        lib/index.ts:30:38 - error TS2345: Argument of type 'readonly (string |
-        number)[]' is not assignable to parameter of type 'string |
-        ConcatArray<string>'.
+        lib/index.ts:30:38 - error TS2345: Argument of type 'readonly (string | number)[]' is not assignable to parameter of type 'string | ConcatArray<string>'.
 
         Type 'readonly (string | number)[]' is not assignable to type 'string'.
 
@@ -184,7 +193,7 @@
         signed-off-by: Gergely Imreh <gergely@balena.io>
       hash: e311c1831102494e3e3cb743a1cd8919b5361a6a
       subject: Fix function checking development releases
-  date: '2019-06-21T14:51:22Z'
+  date: 2019-06-21T14:51:22Z
   version: 2.0.1
 - commits:
     - author: Gergely Imreh
@@ -196,86 +205,86 @@
         signed-off-by: Gergely Imreh <gergely@balena.io>
       hash: 37546aad0eace3138983129623e461c2faa867f3
       subject: remove device whitelist
-  date: '2019-06-18T16:50:48Z'
+  date: 2019-06-18T16:50:48Z
   version: 2.0.0
 - commits:
     - author: Gergely Imreh
-      body: ''
+      body: ""
       footers:
         change-type: patch
         signed-off-by: Gergely Imreh <gergely@balena.io>
       hash: 44d42bdf78e77f1922877f039faaa5ac926a6707
       subject: Add CODEOWNERS
-  date: '2019-06-17T12:17:06Z'
+  date: 2019-06-17T12:17:06Z
   version: 1.2.2
 - commits:
     - author: Thodoris Greasidis
-      body: ''
+      body: ""
       footers:
         change-type: patch
-        resolves: '#7'
+        resolves: "#7"
         signed-off-by: Thodoris Greasidis <thodoris@balena.io>
       hash: 2d619da739e81435a7d09ccb65fe6504421af645
       subject: Test the typings against the min TS supported version
     - author: Thodoris Greasidis
-      body: ''
+      body: ""
       footers:
         change-type: patch
         signed-off-by: Thodoris Greasidis <thodoris@balena.io>
       hash: ef98cc4c0d1a3a88505ebcaa423397f2e4518cf6
       subject: Fix the target directory for the `clean` command
-  date: '2019-06-17T11:05:34Z'
+  date: 2019-06-17T11:05:34Z
   version: 1.2.1
 - commits:
     - author: Thodoris Greasidis
-      body: ''
+      body: ""
       footers:
         change-type: minor
-        resolves: '#3'
+        resolves: "#3"
         signed-off-by: Thodoris Greasidis <thodoris@balena.io>
       hash: 7a47a7406f185b15d1f35af115dc42c02f3d6ea7
       subject: Upgrade resin-semver to balena-semver
-  date: '2019-05-07T18:33:34Z'
+  date: 2019-05-07T18:33:34Z
   version: 1.2.0
 - commits:
     - author: Gergely Imreh
-      body: ''
+      body: ""
       footers:
         change-type: minor
         signed-off-by: Gergely Imreh <gergely@balena.io>
       hash: c530e321689d839acbea77dc5d4f73f3be1eec01
-      subject: 'config: add new device types'
-  date: '2019-04-02T09:20:19Z'
+      subject: "config: add new device types"
+  date: 2019-04-02T09:20:19Z
   version: 1.1.0
 - commits:
     - author: Thodoris Greasidis
-      body: ''
+      body: ""
       footers:
         change-type: major
         signed-off-by: Thodoris Greasidis <thodoris@balena.io>
       hash: b0166956ead91cd9a07e2b6a243a7036321b713c
       subject: Initial code commit
     - author: Thodoris Greasidis
-      body: ''
+      body: ""
       footers:
         signed-off-by: Thodoris Greasidis <thodoris@balena.io>
       hash: 04595b1aa425f94abc1dc9beb005eee4992fd4f1
       subject: Add typings
     - author: Thodoris Greasidis
-      body: ''
+      body: ""
       hash: 6e00b376ac53a3ff063de47b3c7d2e8714563e58
       subject: Export a class to allow injecting the actionsConfig
     - author: Thodoris Greasidis
-      body: ''
+      body: ""
       footers:
         signed-off-by: Thodoris Greasidis <thodoris@balena.io>
       hash: a2bdc6ffe82e9c2e06bb91663aed9c5c7b206d48
       subject: Add types package.json property
     - author: Thodoris Greasidis
-      body: ''
+      body: ""
       footers:
         signed-off-by: Thodoris Greasidis <thodoris@balena.io>
       hash: 737718128eb1b664f5d161d182052f4400b3f344
       subject: Review changes
-  date: '2019-03-08T15:15:48Z'
+  date: 2019-03-08T15:15:48Z
   version: 1.0.0
