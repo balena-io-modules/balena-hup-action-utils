@@ -42,7 +42,7 @@
     "balena-config-karma": "^3.0.0",
     "chai": "^4.3.4",
     "husky": "^4.2.5",
-    "karma": "^5.0.9",
+    "karma": "^6.3.17",
     "lint-staged": "^10.2.11",
     "mocha": "^7.2.0",
     "rimraf": "^3.0.2",
