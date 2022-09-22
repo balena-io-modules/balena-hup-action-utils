@@ -8,6 +8,9 @@
     "build/",
     "lib/"
   ],
+  "engines": {
+    "node": ">=10"
+  },
   "scripts": {
     "build": "npm run clean && tsc --project .",
     "clean": "rimraf build/",
