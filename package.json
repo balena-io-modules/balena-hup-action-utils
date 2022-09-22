@@ -1,6 +1,6 @@
 {
   "name": "balena-hup-action-utils",
-  "version": "4.1.1",
+  "version": "4.1.2",
   "description": "Balena hostOS update validations & utilities",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -58,6 +58,6 @@
     "tslib": "^2.0.0"
   },
   "versionist": {
-    "publishedAt": "2022-04-09T20:24:15.304Z"
+    "publishedAt": "2022-09-22T22:35:28.915Z"
   }
 }

@@ -1,4 +1,29 @@
 - commits:
+    - subject: Specify node 10 as the minimum supported node engine in the package.json
+      hash: 428b80a8d6ff2059fb6be39b7e9ad745847c9748
+      body: |
+        The semver 7.1.3 package, which
+        balena-semver depends on, already has node
+        10 as the minimum engine.
+      footer:
+        Change-type: patch
+        change-type: patch
+        See: https://www.npmjs.com/package/semver
+        see: https://www.npmjs.com/package/semver
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Replace balenaCI with flowzone
+      hash: 8cbe03c666bec40ccfa06bb1c7be2e9d1cd9f90d
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+  version: 4.1.2
+  title: ""
+  date: 2022-09-22T22:35:28.848Z
+- commits:
     - subject: Bump karma to v6
       hash: 76cb56e651c47958d271919e89e774438027d4cf
       body: ""
