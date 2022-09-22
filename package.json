@@ -37,16 +37,17 @@
   "homepage": "https://github.com/balena-io-modules/balena-hup-action-utils#readme",
   "devDependencies": {
     "@balena/lint": "^5.1.0",
-    "@types/chai": "^4.3.0",
-    "@types/mocha": "^7.0.2",
-    "balena-config-karma": "^3.0.0",
-    "chai": "^4.3.4",
+    "@types/chai": "^4.3.3",
+    "@types/chai-as-promised": "^7.1.5",
+    "@types/mocha": "^9.1.1",
+    "balena-config-karma": "^4.0.0",
+    "chai": "^4.3.6",
     "husky": "^4.2.5",
     "karma": "^6.3.17",
     "lint-staged": "^10.2.11",
-    "mocha": "^7.2.0",
+    "mocha": "^10.0.0",
     "rimraf": "^3.0.2",
-    "ts-node": "^10.4.0",
+    "ts-node": "^10.9.1",
     "typescript": "^4.5.4"
   },
   "dependencies": {
