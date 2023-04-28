@@ -20,7 +20,7 @@
     "pretest": "npm run build && npm run lint",
     "test:node": "mocha -r ts-node/register --reporter spec tests/**/*.spec.ts",
     "test:browser": "karma start",
-    "test:ts-compatibility": "npx typescript@~3.8.3 --noEmit --project ./tsconfig.dist.json ; echo \"Re-enable the ts-compatibility check, once npm v6.11.0 is on balenaCI\"",
+    "test:ts-compatibility": "npx typescript@~5.0.4 --noEmit --project ./tsconfig.dist.json ; echo \"Re-enable the ts-compatibility check, once npm v6.11.0 is on balenaCI\"",
     "test": "npm run test:ts-compatibility && npm run test:node && npm run test:browser"
   },
   "repository": {
@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/balena-io-modules/balena-hup-action-utils#readme",
   "devDependencies": {
-    "@balena/lint": "^5.1.0",
+    "@balena/lint": "^6.2.2",
     "@types/chai": "^4.3.3",
     "@types/chai-as-promised": "^7.1.5",
     "@types/mocha": "^9.1.1",
@@ -51,7 +51,7 @@
     "mocha": "^10.0.0",
     "rimraf": "^3.0.2",
     "ts-node": "^10.9.1",
-    "typescript": "^4.5.4"
+    "typescript": "^5.0.4"
   },
   "dependencies": {
     "balena-semver": "^2.0.0",
