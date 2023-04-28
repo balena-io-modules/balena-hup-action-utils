@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es5",
+    "target": "es2015",
     "outDir": "build",
     "declaration": true,
     "importHelpers": true,
@@ -11,8 +11,7 @@
     "preserveConstEnums": true,
     "pretty": true,
     "sourceMap": true,
-    "strictNullChecks": true,
-    "lib": ["es5", "es6", "dom"]
+    "strictNullChecks": true
   },
   "include": [
     "lib/**/*.ts"

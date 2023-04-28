@@ -15,6 +15,7 @@
 */
 
 import * as bSemver from 'balena-semver';
+import { TypedError } from 'typed-error';
 import { actionsConfig as defaultActionsConfig } from './config';
 import { ActionName, ActionsConfig } from './types';
 export { actionsConfig } from './config';
@@ -26,6 +27,12 @@ const getVariant = (semver: SemVer) => {
 	const semverExtraParts = [...semver.build, ...semver.prerelease];
 	return ['dev', 'prod'].find((variant) => semverExtraParts.includes(variant));
 };
+
+export class HUPActionError extends TypedError {
+	constructor(err: string) {
+		super(err);
+	}
+}
 
 export class HUPActionHelper {
 	constructor(private actionsConfig: ActionsConfig = defaultActionsConfig) {}
@@ -68,19 +75,19 @@ export class HUPActionHelper {
 	) {
 		const currentVersionParsed = bSemver.parse(currentVersion);
 		if (currentVersionParsed == null) {
-			throw new Error('Invalid current balenaOS version');
+			throw new HUPActionError('Invalid current balenaOS version');
 		}
 
 		const targetVersionParsed = bSemver.parse(targetVersion);
 		if (targetVersionParsed == null) {
-			throw new Error('Invalid target balenaOS version');
+			throw new HUPActionError('Invalid target balenaOS version');
 		}
 
 		if (
 			currentVersionParsed.prerelease.length > 0 ||
 			targetVersionParsed.prerelease.length > 0
 		) {
-			throw new Error(
+			throw new HUPActionError(
 				'Updates cannot be performed on pre-release balenaOS versions',
 			);
 		}
@@ -92,17 +99,17 @@ export class HUPActionHelper {
 			// Prefer checking only for dev
 			(currentVariant === 'dev') !== (targetVariant === 'dev')
 		) {
-			throw new Error(
+			throw new HUPActionError(
 				'Updates cannot be performed between development and production balenaOS variants',
 			);
 		}
 
 		if (bSemver.lt(targetVersion, currentVersion)) {
-			throw new Error('OS downgrades are not allowed');
+			throw new HUPActionError('OS downgrades are not allowed');
 		}
 
 		if (bSemver.compare(currentVersion, targetVersion) === 0) {
-			throw new Error('Current OS version matches Target OS version');
+			throw new HUPActionError('Current OS version matches Target OS version');
 		}
 
 		const fromMajor = currentVersionParsed.major;
@@ -117,7 +124,7 @@ export class HUPActionHelper {
 					actionName = 'resinhup12';
 					break;
 				default:
-					throw new Error(
+					throw new HUPActionError(
 						`This update request cannot be performed from ${currentVersion} to ${targetVersion}`,
 					);
 			}
@@ -132,7 +139,7 @@ export class HUPActionHelper {
 			defaultActions[actionName] == null &&
 			deviceActions[actionName] == null
 		) {
-			throw new Error(
+			throw new HUPActionError(
 				`This update request cannot be performed on '${deviceType}'`,
 			);
 		}
@@ -149,7 +156,9 @@ export class HUPActionHelper {
 		};
 
 		if (bSemver.lt(currentVersion, minSourceVersion)) {
-			throw new Error(`Current OS version must be >= ${minSourceVersion}`);
+			throw new HUPActionError(
+				`Current OS version must be >= ${minSourceVersion}`,
+			);
 		}
 
 		// If there's a major version constraint for the given action, take it into account
@@ -157,17 +166,21 @@ export class HUPActionHelper {
 			targetMajorVersion &&
 			bSemver.major(targetVersion) !== targetMajorVersion
 		) {
-			throw new Error(
+			throw new HUPActionError(
 				`Target OS version must be of major version ${targetMajorVersion}`,
 			);
 		}
 
 		if (bSemver.lt(targetVersion, minTargetVersion)) {
-			throw new Error(`Target OS version must be >= ${minTargetVersion}`);
+			throw new HUPActionError(
+				`Target OS version must be >= ${minTargetVersion}`,
+			);
 		}
 
 		if (maxTargetVersion && bSemver.gte(targetVersion, maxTargetVersion!)) {
-			throw new Error(`Target OS version must be < ${maxTargetVersion}`);
+			throw new HUPActionError(
+				`Target OS version must be < ${maxTargetVersion}`,
+			);
 		}
 
 		return actionName;
@@ -197,7 +210,10 @@ export class HUPActionHelper {
 		try {
 			return !!this.getHUPActionType(deviceType, currentVersion, targetVersion);
 		} catch (err) {
-			return false;
+			if (err instanceof HUPActionError) {
+				return false;
+			}
+			throw err;
 		}
 	}
 }
