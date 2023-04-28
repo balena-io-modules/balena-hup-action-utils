@@ -1,4 +1,50 @@
 - commits:
+    - subject: Re-enable TS-compatibility checks
+      hash: af8c613fd90ed8992e280668f38428532f49e856
+      body: ""
+      footer:
+        Resolves: "#20"
+        resolves: "#20"
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Update Typescript to 5.0.4
+      hash: ec45e3cfaa76f98c61455c0ffbc0eb95d89bcfa7
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Throw a typed HUPActionError for expected errors
+      hash: 67895734317615fa4115ff8b611854573a512e11
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Change the build target to es6
+      hash: 433af1c0a84fcddf21436c1fe2d812e53de737dd
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Drop support for node < v12
+      hash: f892293249d534a4afc3012d51264e33b01cb4ec
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+      nested: []
+  version: 5.0.0
+  title: ""
+  date: 2023-04-28T09:13:27.431Z
+- commits:
     - subject: Delete redundant .resinci.yml
       hash: e3edf16cfbcaa4882325e6a7e3fd8339e8b8dd28
       body: ""
