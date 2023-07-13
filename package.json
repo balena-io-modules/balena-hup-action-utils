@@ -1,6 +1,6 @@
 {
   "name": "balena-hup-action-utils",
-  "version": "5.0.0",
+  "version": "5.0.1",
   "description": "Balena hostOS update validations & utilities",
   "main": "build/index.js",
   "types": "build/index.d.ts",
@@ -59,6 +59,6 @@
     "typed-error": "^3.2.2"
   },
   "versionist": {
-    "publishedAt": "2023-04-28T09:13:27.567Z"
+    "publishedAt": "2023-07-13T19:00:55.312Z"
   }
 }
