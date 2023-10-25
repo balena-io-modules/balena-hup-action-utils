@@ -12,16 +12,15 @@
     "node": ">=14"
   },
   "scripts": {
-    "build": "npm run clean && tsc --project .",
+    "build": "npm run clean && npm run lint && tsc --project .",
     "clean": "rimraf build/",
     "lint": "balena-lint --typescript lib tests && tsc --noEmit --project .",
     "prettify": "balena-lint --typescript --fix lib tests",
-    "prepare": "npm run build",
-    "pretest": "npm run build && npm run lint",
+    "prepack": "npm run build",
     "test:node": "mocha -r ts-node/register --reporter spec tests/**/*.spec.ts",
     "test:browser": "karma start",
     "test:ts-compatibility": "npx -p typescript@~4.5.2 tsc --noEmit --project ./tsconfig.dist.json",
-    "test": "npm run test:ts-compatibility && npm run test:node && npm run test:browser"
+    "test": "npm run build && npm run test:ts-compatibility && npm run test:node && npm run test:browser"
   },
   "repository": {
     "type": "git",
