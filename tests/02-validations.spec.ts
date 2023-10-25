@@ -49,19 +49,49 @@ describe('BalenaHupActionUtils', () => {
 			).to.equal(false);
 		});
 
-		it('Should not allow pre-release versions', () => {
-			expect(
-				hupActionHelper.isSupportedOsUpdate(
-					'raspberry-pi',
-					'2.9.6-rc1.rev1',
-					'2.29.2+rev1.prod',
-				),
-			).to.equal(false);
+		it('Should allow upgrades from a finalized to a pre-release version', () => {
 			expect(
 				hupActionHelper.isSupportedOsUpdate(
 					'raspberry-pi',
 					'2.9.6+rev2.prod',
-					'2.29.2-rc1.rev1',
+					'2.29.2-1234+rev1',
+				),
+			).to.equal(true);
+		});
+
+		it('Should allow upgrades from a pre-release to a finalized version', () => {
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'raspberry-pi',
+					'2.9.6-1234+rev1',
+					'2.29.2+rev1.prod',
+				),
+			).to.equal(true);
+		});
+
+		it('Should allow upgrades from a pre-release to a newer pre-release version', () => {
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'raspberry-pi',
+					'2.29.2-1234+rev1',
+					'2.29.2-1234+rev2',
+				),
+			).to.equal(true);
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'raspberry-pi',
+					'2.29.2-1234+rev1',
+					'2.29.3-1234+rev1',
+				),
+			).to.equal(true);
+		});
+
+		it('Should not allow upgrades from a finalized to a pre-release version of the same base semver', () => {
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'raspberry-pi',
+					'2.29.2+rev1',
+					'2.29.2-1234+rev2',
 				),
 			).to.equal(false);
 		});
@@ -72,6 +102,23 @@ describe('BalenaHupActionUtils', () => {
 					'raspberry-pi',
 					'2.29.2+rev1.prod',
 					'2.9.6+rev2.prod',
+				),
+			).to.equal(false);
+		});
+
+		it('Should not allow downgrades between pre-release versions', () => {
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'raspberry-pi',
+					'2.29.2-1234+rev1.prod',
+					'2.9.6-1234+rev2.prod',
+				),
+			).to.equal(false);
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'raspberry-pi',
+					'2.29.2-1234+rev2.prod',
+					'2.29.2-1234+rev1.prod',
 				),
 			).to.equal(false);
 		});
