@@ -19,7 +19,7 @@
     "prepack": "npm run build",
     "test:node": "mocha -r ts-node/register --reporter spec tests/**/*.spec.ts",
     "test:browser": "karma start",
-    "test:ts-compatibility": "npx -p typescript@~4.5.2 tsc --noEmit --project ./tsconfig.dist.json",
+    "test:ts-compatibility": "npx -p typescript@~5.3.3 tsc --noEmit --project ./tsconfig.dist.json",
     "test": "npm run build && npm run test:ts-compatibility && npm run test:node && npm run test:browser",
     "prepare": "husky install"
   },
