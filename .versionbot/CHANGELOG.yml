@@ -1,4 +1,40 @@
 - commits:
+    - subject: Drop support for TypeScript < 5.3.3
+      hash: 7c3430280b47ea9a17f7bb94df068f2a46bfa975
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Drop support for node < v18
+      hash: b1eb6844578bff03c05c19bbf6436526a69a8b30
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Update dependencies
+      hash: 7413837d3aed9aa54ec5d1e218647f543308b298
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Move the build step from prepare to prepack
+      hash: c4480c214c79f4e07cf3b65944b83d11c9c2e267
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+  version: 6.0.0
+  title: ""
+  date: 2023-12-20T13:33:03.867Z
+- commits:
     - subject: "patch: Update flowzone.yml"
       hash: 41a90775219e1b7b144069aea545f8f2141c88f7
       body: ""
