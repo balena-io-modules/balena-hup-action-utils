@@ -83,15 +83,6 @@ export class HUPActionHelper {
 			throw new HUPActionError('Invalid target balenaOS version');
 		}
 
-		if (
-			currentVersionParsed.prerelease.length > 0 ||
-			targetVersionParsed.prerelease.length > 0
-		) {
-			throw new HUPActionError(
-				'Updates cannot be performed on pre-release balenaOS versions',
-			);
-		}
-
 		const currentVariant = getVariant(currentVersionParsed);
 		const targetVariant = getVariant(targetVersionParsed);
 		if (

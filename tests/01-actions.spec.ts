@@ -96,25 +96,51 @@ describe('BalenaHupActionUtils', () => {
 			).to.equal('balenahup');
 		});
 
-		it('Should not allow pre-release versions', () => {
-			expect(() =>
-				hupActionHelper.getHUPActionType(
-					'raspberry-pi',
-					'2.9.6-rc1.rev1',
-					'2.29.2+rev1.prod',
-				),
-			).to.throw(
-				'Updates cannot be performed on pre-release balenaOS versions',
-			);
-			expect(() =>
+		it('Should allow upgrades from a finalized to a pre-release version', () => {
+			expect(
 				hupActionHelper.getHUPActionType(
 					'raspberry-pi',
 					'2.9.6+rev2.prod',
-					'2.29.2-rc1.rev1',
+					'2.29.2-1234+rev1',
 				),
-			).to.throw(
-				'Updates cannot be performed on pre-release balenaOS versions',
-			);
+			).to.equal('balenahup');
+		});
+
+		it('Should allow upgrades from a pre-release to a finalized version', () => {
+			expect(
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.9.6-1234+rev1',
+					'2.29.2+rev1.prod',
+				),
+			).to.equal('balenahup');
+		});
+
+		it('Should allow upgrades from a pre-release to a newer pre-release version', () => {
+			expect(
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.29.2-1234+rev1',
+					'2.29.2-1234+rev2',
+				),
+			).to.equal('balenahup');
+			expect(
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.29.2-1234+rev1',
+					'2.29.3-1234+rev1',
+				),
+			).to.equal('balenahup');
+		});
+
+		it('Should not allow upgrades from a finalized to a pre-release version of the same base semver', () => {
+			expect(() =>
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.29.2+rev1',
+					'2.29.2-1234+rev2',
+				),
+			).to.throw('OS downgrades are not allowed');
 		});
 
 		it('Should not allow downgrades', () => {
@@ -123,6 +149,23 @@ describe('BalenaHupActionUtils', () => {
 					'raspberry-pi',
 					'2.29.2+rev1.prod',
 					'2.9.6+rev2.prod',
+				),
+			).to.throw('OS downgrades are not allowed');
+		});
+
+		it('Should not allow downgrades between pre-release versions', () => {
+			expect(() =>
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.29.2-1234+rev1.prod',
+					'2.9.6-1234+rev2.prod',
+				),
+			).to.throw('OS downgrades are not allowed');
+			expect(() =>
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.29.2-1234+rev2.prod',
+					'2.29.2-1234+rev1.prod',
 				),
 			).to.throw('OS downgrades are not allowed');
 		});
