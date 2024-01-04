@@ -1,4 +1,16 @@
 - commits:
+    - subject: Enable OS Updates to pre-release versions of higher base semver
+      hash: 1b3e83b9519157be1ca9ba7756bba87a08bea04a
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Thodoris Greasidis
+      nested: []
+  version: 6.1.0
+  title: ""
+  date: 2024-01-04T13:32:14.391Z
+- commits:
     - subject: Drop support for TypeScript < 5.3.3
       hash: 7c3430280b47ea9a17f7bb94df068f2a46bfa975
       body: ""
