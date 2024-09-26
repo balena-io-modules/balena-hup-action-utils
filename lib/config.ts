@@ -14,7 +14,7 @@
 	limitations under the License.
 */
 
-import { ActionsConfig } from './types';
+import type { ActionsConfig } from './types';
 
 export const actionsConfig: ActionsConfig = {
 	actions: {
@@ -80,6 +80,13 @@ export const actionsConfig: ActionsConfig = {
 		'jetson-tx2': {
 			balenahup: {
 				minSourceVersion: '2.7.4',
+			},
+		},
+		'jetson-xavier-nx-devkit-emmc': {
+			takeover: {
+				// NOTE: this version is here as a placeholder for
+				// testing. Replace with the correct version before merging
+				minTargetVersion: '5.1.45+rev1',
 			},
 		},
 		qemux86: {

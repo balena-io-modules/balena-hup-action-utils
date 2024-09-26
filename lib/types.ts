@@ -27,10 +27,17 @@ export interface ActionConfig {
 	maxTargetVersion?: string;
 }
 
+// The per device configuration can override the version configuration of the
+// action, or define a 'takeover' version when a jump between two versions
+// cannot be done with balenahup, but needs a full re-flash
+type DeviceTypeConfig = {
+	[K in ActionName]?: Partial<ActionConfig>;
+} & { takeover?: Pick<ActionConfig, 'minTargetVersion'> };
+
 export interface ActionsConfig {
 	actions: { [K in ActionName]: ActionConfig };
 	deviceTypesDefaults: { [K in ActionName]?: Partial<ActionConfig> };
 	deviceTypes: Partial<{
-		[deviceTypeSlug: string]: { [K in ActionName]?: Partial<ActionConfig> };
+		[deviceTypeSlug: string]: DeviceTypeConfig;
 	}>;
 }

@@ -17,7 +17,7 @@
 import * as bSemver from 'balena-semver';
 import { TypedError } from 'typed-error';
 import { actionsConfig as defaultActionsConfig } from './config';
-import { ActionName, ActionsConfig } from './types';
+import type { ActionName, ActionsConfig } from './types';
 export { actionsConfig } from './config';
 export * from './types';
 
@@ -120,8 +120,13 @@ export class HUPActionHelper {
 					);
 			}
 		} else {
+			// Takeover overrides the checks below for the device type
+			if (this.isTakeoverRequired(deviceType, currentVersion, targetVersion)) {
+				return 'takeover';
+			}
 			actionName = 'balenahup';
 		}
+
 		const { actionsConfig } = this;
 		const defaultActions = actionsConfig.deviceTypesDefaults;
 		const deviceActions = actionsConfig.deviceTypes[deviceType] || {};
@@ -175,6 +180,27 @@ export class HUPActionHelper {
 		}
 
 		return actionName;
+	}
+
+	private isTakeoverRequired(
+		deviceType: string,
+		currentVersion: string,
+		targetVersion: string,
+	) {
+		const { actionsConfig } = this;
+		const deviceActions = actionsConfig.deviceTypes[deviceType] || {};
+
+		if (deviceActions.takeover == null) {
+			return false;
+		}
+
+		const { minTargetVersion } = deviceActions.takeover;
+		if (
+			bSemver.lt(currentVersion, minTargetVersion) &&
+			bSemver.gte(targetVersion, minTargetVersion)
+		) {
+			return true;
+		}
 	}
 
 	/**
