@@ -182,7 +182,7 @@ export class HUPActionHelper {
 		return actionName;
 	}
 
-	private isTakeoverRequired(
+	public isTakeoverRequired(
 		deviceType: string,
 		currentVersion: string,
 		targetVersion: string,
