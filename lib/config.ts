@@ -50,6 +50,9 @@ export const actionsConfig: ActionsConfig = {
 			resinhup11: {},
 			resinhup12: {},
 		},
+		'raspberrypi3-64': {
+			balenahup: { minTakeoverVersion: '2.94.3' },
+		},
 		'beaglebone-black': {
 			resinhup11: {},
 			resinhup12: {
