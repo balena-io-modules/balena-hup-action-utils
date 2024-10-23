@@ -25,19 +25,17 @@ export interface ActionConfig {
 	minTargetVersion: string;
 	// first resinOS version within the major version, that the updater can no longer target (update only to strictly lower versions than this)
 	maxTargetVersion?: string;
+	// first balenaOS version that requires a takeover rather than a balenahup. An update with a target larger or equal to this version
+	// coming from a source version before it will require a takeover rather than a HUP
+	minTakeoverVersion?: string;
 }
-
-// The per device configuration can override the version configuration of the
-// action, or define a 'takeover' version when a jump between two versions
-// cannot be done with balenahup, but needs a full re-flash
-type DeviceTypeConfig = {
-	[K in ActionName]?: Partial<ActionConfig>;
-} & { takeover?: Pick<ActionConfig, 'minTargetVersion'> };
 
 export interface ActionsConfig {
 	actions: { [K in ActionName]: ActionConfig };
 	deviceTypesDefaults: { [K in ActionName]?: Partial<ActionConfig> };
 	deviceTypes: Partial<{
-		[deviceTypeSlug: string]: DeviceTypeConfig;
+		[deviceTypeSlug: string]: {
+			[K in ActionName]?: Partial<ActionConfig>;
+		};
 	}>;
 }
