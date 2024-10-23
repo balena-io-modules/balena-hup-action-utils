@@ -72,7 +72,7 @@ export class HUPActionHelper {
 		deviceType: string,
 		currentVersion: string,
 		targetVersion: string,
-	) {
+	): ActionName | 'takeover' {
 		const currentVersionParsed = bSemver.parse(currentVersion);
 		if (currentVersionParsed == null) {
 			throw new HUPActionError('Invalid current balenaOS version');
@@ -120,10 +120,10 @@ export class HUPActionHelper {
 					);
 			}
 		} else {
-			// Takeover overrides the checks below for the device type
-			if (this.isTakeoverRequired(deviceType, currentVersion, targetVersion)) {
-				return 'takeover';
-			}
+			// // Takeover overrides the checks below for the device type
+			// if (this.isTakeoverRequired(deviceType, currentVersion, targetVersion)) {
+			// 	return 'takeover';
+			// }
 			actionName = 'balenahup';
 		}
 
@@ -144,6 +144,7 @@ export class HUPActionHelper {
 			minSourceVersion,
 			targetMajorVersion,
 			minTargetVersion,
+			minTakeoverVersion,
 			maxTargetVersion,
 		} = {
 			...actionsConfig.actions[actionName],
@@ -179,28 +180,16 @@ export class HUPActionHelper {
 			);
 		}
 
+		if (actionName === 'balenahup' && minTakeoverVersion != null) {
+			if (
+				bSemver.lt(currentVersion, minTakeoverVersion) &&
+				bSemver.gte(targetVersion, minTakeoverVersion)
+			) {
+				return 'takeover';
+			}
+		}
+
 		return actionName;
-	}
-
-	private isTakeoverRequired(
-		deviceType: string,
-		currentVersion: string,
-		targetVersion: string,
-	) {
-		const { actionsConfig } = this;
-		const deviceActions = actionsConfig.deviceTypes[deviceType] || {};
-
-		if (deviceActions.takeover == null) {
-			return false;
-		}
-
-		const { minTargetVersion } = deviceActions.takeover;
-		if (
-			bSemver.lt(currentVersion, minTargetVersion) &&
-			bSemver.gte(targetVersion, minTargetVersion)
-		) {
-			return true;
-		}
 	}
 
 	/**

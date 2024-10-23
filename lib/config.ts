@@ -83,10 +83,10 @@ export const actionsConfig: ActionsConfig = {
 			},
 		},
 		'jetson-xavier-nx-devkit-emmc': {
-			takeover: {
+			balenahup: {
 				// NOTE: this version is here as a placeholder for
 				// testing. Replace with the correct version before merging
-				minTargetVersion: '5.1.45+rev1',
+				minTakeoverVersion: '5.1.45+rev1',
 			},
 		},
 		qemux86: {
