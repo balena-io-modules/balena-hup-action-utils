@@ -17,6 +17,9 @@
 import type { ActionsConfig } from './types';
 
 export const actionsConfig: ActionsConfig = {
+	// 'takeover' is an ActionName, but we do not define an ActionsConfig for it.
+	// The name is used only as a result of processing a 'balenahup' ActionConfig.
+	// See the deviceTypes entries below that define a minTakeoverVersion.
 	actions: {
 		resinhup11: {
 			minSourceVersion: '1.8.0',
@@ -82,11 +85,19 @@ export const actionsConfig: ActionsConfig = {
 				minSourceVersion: '2.7.4',
 			},
 		},
+		'jetson-xavier': {
+			balenahup: {
+				minTakeoverVersion: '6.0.50',
+			},
+		},
+		'jetson-xavier-nx-devkit': {
+			balenahup: {
+				minTakeoverVersion: '6.0.50+rev1',
+			},
+		},
 		'jetson-xavier-nx-devkit-emmc': {
 			balenahup: {
-				// NOTE: this version is here as a placeholder for
-				// testing. Replace with the correct version before merging
-				minTakeoverVersion: '5.1.45+rev1',
+				minTakeoverVersion: '6.0.39',
 			},
 		},
 		qemux86: {

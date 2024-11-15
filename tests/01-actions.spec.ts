@@ -734,10 +734,10 @@ describe('BalenaHupActionUtils', () => {
 			[
 				{
 					deviceType: 'jetson-xavier-nx-devkit-emmc',
-					before: '5.0.0',
-					cutoff: '5.1.45',
-					takeover: '5.1.45+rev1',
-					after: '5.2.0',
+					before: '6.0.0',
+					cutoff: '6.0.38',
+					takeover: '6.0.39',
+					after: '6.1.0',
 				},
 			].forEach(({ deviceType, before, cutoff, takeover, after }) => {
 				it(`should return 'balenahup' if doing HUP for ${deviceType} to a version before ${takeover}`, () => {
