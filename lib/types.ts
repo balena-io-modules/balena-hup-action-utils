@@ -14,7 +14,7 @@
 	limitations under the License.
 */
 
-export type ActionName = 'resinhup11' | 'resinhup12' | 'balenahup';
+export type ActionName = 'resinhup11' | 'resinhup12' | 'balenahup' | 'takeover';
 
 export interface ActionConfig {
 	// the minimum resinOS source version, that the upgrade can be done for, includes this version

@@ -33,6 +33,15 @@ export const actionsConfig: ActionsConfig = {
 			minSourceVersion: '2.0.0+rev1',
 			minTargetVersion: '2.2.0+rev1',
 		},
+		takeover: {
+			// Takeover is a possible action returned by getHUPActionType
+			// but it really is a special case of balenahup that will happen
+			// when minTakeoverVersion is defined.
+			// We use nonsense values here to prevent this being used as any
+			// other action
+			minSourceVersion: '99.99.99',
+			minTargetVersion: '99.99.99',
+		},
 	},
 	deviceTypesDefaults: {
 		balenahup: {},
@@ -82,11 +91,19 @@ export const actionsConfig: ActionsConfig = {
 				minSourceVersion: '2.7.4',
 			},
 		},
+		'jetson-xavier': {
+			balenahup: {
+				minTakeoverVersion: '6.0.50',
+			},
+		},
+		'jetson-xavier-nx-devkit': {
+			balenahup: {
+				minTakeoverVersion: '6.0.50+rev1',
+			},
+		},
 		'jetson-xavier-nx-devkit-emmc': {
 			balenahup: {
-				// NOTE: this version is here as a placeholder for
-				// testing. Replace with the correct version before merging
-				minTakeoverVersion: '5.1.45+rev1',
+				minTakeoverVersion: '6.0.39',
 			},
 		},
 		qemux86: {

@@ -72,7 +72,7 @@ export class HUPActionHelper {
 		deviceType: string,
 		currentVersion: string,
 		targetVersion: string,
-	): ActionName | 'takeover' {
+	): ActionName {
 		const currentVersionParsed = bSemver.parse(currentVersion);
 		if (currentVersionParsed == null) {
 			throw new HUPActionError('Invalid current balenaOS version');
@@ -120,6 +120,7 @@ export class HUPActionHelper {
 					);
 			}
 		} else {
+			// actionName may change below to 'takeover'
 			actionName = 'balenahup';
 		}
 
