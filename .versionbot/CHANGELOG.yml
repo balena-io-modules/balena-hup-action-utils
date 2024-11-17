@@ -1,4 +1,16 @@
 - commits:
+    - subject: Add takeover action for some device types
+      hash: f522a6b9002c074fd4f68c0bdfdc032ff1c06a41
+      body: ""
+      footer:
+        Change-type: minor
+        change-type: minor
+      author: Felipe Lalanne
+      nested: []
+  version: 6.2.0
+  title: ""
+  date: 2024-11-17T17:10:42.234Z
+- commits:
     - subject: Enable OS Updates to pre-release versions of higher base semver
       hash: 1b3e83b9519157be1ca9ba7756bba87a08bea04a
       body: ""
@@ -316,7 +328,9 @@
 
         ```
 
-        lib/index.ts:30:38 - error TS2345: Argument of type 'readonly (string | number)[]' is not assignable to parameter of type 'string | ConcatArray<string>'.
+        lib/index.ts:30:38 - error TS2345: Argument of type 'readonly (string |
+        number)[]' is not assignable to parameter of type 'string |
+        ConcatArray<string>'.
 
         Type 'readonly (string | number)[]' is not assignable to type 'string'.
 
