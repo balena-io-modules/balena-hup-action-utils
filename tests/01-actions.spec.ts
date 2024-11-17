@@ -729,5 +729,35 @@ describe('BalenaHupActionUtils', () => {
 				).to.equal('balenahup');
 			});
 		});
+
+		describe('takeover', () => {
+			[
+				{
+					deviceType: 'jetson-xavier-nx-devkit-emmc',
+					before: '6.0.0',
+					cutoff: '6.0.38',
+					takeover: '6.0.39',
+					after: '6.1.0',
+				},
+			].forEach(({ deviceType, before, cutoff, takeover, after }) => {
+				it(`should return 'balenahup' if doing HUP for ${deviceType} to a version before ${takeover}`, () => {
+					expect(
+						hupActionHelper.getHUPActionType(deviceType, before, cutoff),
+					).to.equal('balenahup');
+				});
+
+				it(`should return 'takeover' if doing HUP for ${deviceType} to a version after ${takeover}`, () => {
+					expect(
+						hupActionHelper.getHUPActionType(deviceType, before, after),
+					).to.equal('takeover');
+				});
+
+				it(`should return 'balenahup' if doing HUP for ${deviceType} from a version after ${takeover}`, () => {
+					expect(
+						hupActionHelper.getHUPActionType(deviceType, takeover, after),
+					).to.equal('balenahup');
+				});
+			});
+		});
 	});
 });

@@ -14,7 +14,7 @@
 	limitations under the License.
 */
 
-import { ActionsConfig } from './types';
+import type { ActionsConfig } from './types';
 
 export const actionsConfig: ActionsConfig = {
 	actions: {
@@ -32,6 +32,15 @@ export const actionsConfig: ActionsConfig = {
 		balenahup: {
 			minSourceVersion: '2.0.0+rev1',
 			minTargetVersion: '2.2.0+rev1',
+		},
+		takeover: {
+			// Takeover is a possible action returned by getHUPActionType
+			// but it really is a special case of balenahup that will happen
+			// when minTakeoverVersion is defined.
+			// We use nonsense values here to prevent this being used as any
+			// other action
+			minSourceVersion: '99.99.99',
+			minTargetVersion: '99.99.99',
 		},
 	},
 	deviceTypesDefaults: {
@@ -80,6 +89,21 @@ export const actionsConfig: ActionsConfig = {
 		'jetson-tx2': {
 			balenahup: {
 				minSourceVersion: '2.7.4',
+			},
+		},
+		'jetson-xavier': {
+			balenahup: {
+				minTakeoverVersion: '6.0.50',
+			},
+		},
+		'jetson-xavier-nx-devkit': {
+			balenahup: {
+				minTakeoverVersion: '6.0.50+rev1',
+			},
+		},
+		'jetson-xavier-nx-devkit-emmc': {
+			balenahup: {
+				minTakeoverVersion: '6.0.39',
 			},
 		},
 		qemux86: {

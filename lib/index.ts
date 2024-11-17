@@ -17,7 +17,7 @@
 import * as bSemver from 'balena-semver';
 import { TypedError } from 'typed-error';
 import { actionsConfig as defaultActionsConfig } from './config';
-import { ActionName, ActionsConfig } from './types';
+import type { ActionName, ActionsConfig } from './types';
 export { actionsConfig } from './config';
 export * from './types';
 
@@ -72,7 +72,7 @@ export class HUPActionHelper {
 		deviceType: string,
 		currentVersion: string,
 		targetVersion: string,
-	) {
+	): ActionName {
 		const currentVersionParsed = bSemver.parse(currentVersion);
 		if (currentVersionParsed == null) {
 			throw new HUPActionError('Invalid current balenaOS version');
@@ -120,8 +120,10 @@ export class HUPActionHelper {
 					);
 			}
 		} else {
+			// actionName may change below to 'takeover'
 			actionName = 'balenahup';
 		}
+
 		const { actionsConfig } = this;
 		const defaultActions = actionsConfig.deviceTypesDefaults;
 		const deviceActions = actionsConfig.deviceTypes[deviceType] || {};
@@ -139,6 +141,7 @@ export class HUPActionHelper {
 			minSourceVersion,
 			targetMajorVersion,
 			minTargetVersion,
+			minTakeoverVersion,
 			maxTargetVersion,
 		} = {
 			...actionsConfig.actions[actionName],
@@ -172,6 +175,15 @@ export class HUPActionHelper {
 			throw new HUPActionError(
 				`Target OS version must be < ${maxTargetVersion}`,
 			);
+		}
+
+		if (actionName === 'balenahup' && minTakeoverVersion != null) {
+			if (
+				bSemver.lt(currentVersion, minTakeoverVersion) &&
+				bSemver.gte(targetVersion, minTakeoverVersion)
+			) {
+				return 'takeover';
+			}
 		}
 
 		return actionName;
