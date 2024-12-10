@@ -1,4 +1,16 @@
 - commits:
+    - subject: Update `getHUPActionType` description
+      hash: 9bef39d9ac729efaf724c82eae2708efede57606
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Matthew Yarmolinsky
+      nested: []
+  version: 6.2.1
+  title: ""
+  date: 2024-12-10T18:49:36.890Z
+- commits:
     - subject: Add takeover action for some device types
       hash: f522a6b9002c074fd4f68c0bdfdc032ff1c06a41
       body: ""
