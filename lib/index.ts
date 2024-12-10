@@ -50,6 +50,7 @@ export class HUPActionHelper {
 	 *   - resinhup11
 	 *   - resinhup12
 	 *   - balenahup
+	 *   - takeover
 	 *
 	 *  For a more detailed list of supported actions per device type check config.ts
 	 *
