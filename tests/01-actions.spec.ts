@@ -737,27 +737,77 @@ describe('BalenaHupActionUtils', () => {
 					before: '6.0.0',
 					cutoff: '6.0.38',
 					takeover: '6.0.39',
+					takeoverVariants: {
+						// pre-unification versions used by balena-proxy
+						invalidSemverDev: '6.0.39.dev',
+						invalidSemverProd: '6.0.39.prod',
+						// balena-semver considers '+dev' a kind of pre-release
+						// relative to a no-variant version like 6.0.39.
+						noRev: '6.0.39+dev',
+						rev1Dev: '6.0.39+rev1.dev',
+					},
 					after: '6.1.0',
 				},
-			].forEach(({ deviceType, before, cutoff, takeover, after }) => {
-				it(`should return 'balenahup' if doing HUP for ${deviceType} to a version before ${takeover}`, () => {
-					expect(
-						hupActionHelper.getHUPActionType(deviceType, before, cutoff),
-					).to.equal('balenahup');
-				});
+			].forEach(
+				({ deviceType, before, cutoff, takeover, takeoverVariants, after }) => {
+					it(`should return 'balenahup' if doing HUP for ${deviceType} from a version before ${takeover} to a version before ${takeover}`, () => {
+						expect(
+							hupActionHelper.getHUPActionType(deviceType, before, cutoff),
+						).to.equal('balenahup');
+					});
 
-				it(`should return 'takeover' if doing HUP for ${deviceType} to a version after ${takeover}`, () => {
-					expect(
-						hupActionHelper.getHUPActionType(deviceType, before, after),
-					).to.equal('takeover');
-				});
+					it(`should return 'takeover' if doing HUP for ${deviceType} from a version before ${takeover} to a version after ${takeover}`, () => {
+						expect(
+							hupActionHelper.getHUPActionType(deviceType, before, after),
+						).to.equal('takeover');
+					});
 
-				it(`should return 'balenahup' if doing HUP for ${deviceType} from a version after ${takeover}`, () => {
-					expect(
-						hupActionHelper.getHUPActionType(deviceType, takeover, after),
-					).to.equal('balenahup');
-				});
-			});
+					it(`should return 'balenahup' if doing HUP for ${deviceType} from ${takeover} to a version after ${takeover}`, () => {
+						expect(
+							hupActionHelper.getHUPActionType(deviceType, takeover, after),
+						).to.equal('balenahup');
+					});
+
+					it(`should return 'balenahup' if doing HUP for ${deviceType} from ${takeover} (dev mode) to a version after ${takeover}`, () => {
+						expect(
+							hupActionHelper.getHUPActionType(
+								deviceType,
+								takeoverVariants.invalidSemverDev,
+								after,
+							),
+						).to.equal('balenahup');
+					});
+					it(`should return 'balenahup' if doing HUP for ${deviceType} from ${takeover} (prod mode) to a version after ${takeover}`, () => {
+						expect(
+							hupActionHelper.getHUPActionType(
+								deviceType,
+								takeoverVariants.invalidSemverProd,
+								after,
+							),
+						).to.equal('balenahup');
+					});
+
+					it(`should return 'takeover' if doing HUP for ${deviceType} from '${takeover}+dev' to a version after ${takeover}`, () => {
+						expect(
+							hupActionHelper.getHUPActionType(
+								deviceType,
+								takeoverVariants.noRev,
+								after,
+							),
+						).to.equal('takeover');
+					});
+
+					it(`should return 'balenahup' if doing HUP for ${deviceType} from '${takeover}+rev1' (dev mode) to another version after ${takeover}`, () => {
+						expect(
+							hupActionHelper.getHUPActionType(
+								deviceType,
+								takeoverVariants.rev1Dev,
+								after,
+							),
+						).to.equal('balenahup');
+					});
+				},
+			);
 		});
 	});
 });
