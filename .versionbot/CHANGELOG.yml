@@ -1,4 +1,19 @@
 - commits:
+    - subject: Eliminate prod/dev variants in version comparison for takeover
+      hash: b0e0a626ac18a6b75c5753801de90633385b774c
+      body: |
+        The variant may be appended by balena-proxy.
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Ken Bannister <kb2ma@runbox.com>
+        signed-off-by: Ken Bannister <kb2ma@runbox.com>
+      author: Ken Bannister
+      nested: []
+  version: 6.2.2
+  title: ""
+  date: 2024-12-16T22:29:38.585Z
+- commits:
     - subject: Update `getHUPActionType` description
       hash: 9bef39d9ac729efaf724c82eae2708efede57606
       body: ""
