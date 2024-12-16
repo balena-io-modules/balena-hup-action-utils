@@ -179,8 +179,11 @@ export class HUPActionHelper {
 		}
 
 		if (actionName === 'balenahup' && minTakeoverVersion != null) {
+			// OS variant is not relevant and compares less than plain version,
+			// which may erroneously trigger takeover again.
+			const noVariantVersion = currentVersion.replace(/\.dev$|\.prod$/, '');
 			if (
-				bSemver.lt(currentVersion, minTakeoverVersion) &&
+				bSemver.lt(noVariantVersion, minTakeoverVersion) &&
 				bSemver.gte(targetVersion, minTakeoverVersion)
 			) {
 				return 'takeover';
