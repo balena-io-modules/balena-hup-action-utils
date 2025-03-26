@@ -28,14 +28,12 @@ const getVariant = (semver: SemVer) => {
 	return ['dev', 'prod'].find((variant) => semverExtraParts.includes(variant));
 };
 
-export class HUPActionError extends TypedError {
-	constructor(err: string) {
-		super(err);
-	}
-}
+export class HUPActionError extends TypedError {}
 
 export class HUPActionHelper {
-	constructor(private actionsConfig: ActionsConfig = defaultActionsConfig) {}
+	public constructor(
+		private actionsConfig: ActionsConfig = defaultActionsConfig,
+	) {}
 
 	/**
 	 * @summary Returns the resinhup type based on device type, current and target balenaOS versions
@@ -127,7 +125,7 @@ export class HUPActionHelper {
 
 		const { actionsConfig } = this;
 		const defaultActions = actionsConfig.deviceTypesDefaults;
-		const deviceActions = actionsConfig.deviceTypes[deviceType] || {};
+		const deviceActions = actionsConfig.deviceTypes[deviceType] ?? {};
 
 		if (
 			defaultActions[actionName] == null &&
@@ -172,7 +170,7 @@ export class HUPActionHelper {
 			);
 		}
 
-		if (maxTargetVersion && bSemver.gte(targetVersion, maxTargetVersion!)) {
+		if (maxTargetVersion && bSemver.gte(targetVersion, maxTargetVersion)) {
 			throw new HUPActionError(
 				`Target OS version must be < ${maxTargetVersion}`,
 			);
