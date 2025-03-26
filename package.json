@@ -51,7 +51,7 @@
     "mocha": "^10.2.0",
     "rimraf": "^5.0.5",
     "ts-node": "^10.9.2",
-    "typescript": "^5.3.3"
+    "typescript": "^5.8.2"
   },
   "dependencies": {
     "balena-semver": "^3.0.0",
