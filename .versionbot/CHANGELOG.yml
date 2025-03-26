@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency balena-semver to v3
+      hash: 07a5838fa02b4df7c43b59db94e1d9f96c234e07
+      body: |
+        Update balena-semver from 2.3.5 to 3.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 6.2.4
+  title: ""
+  date: 2025-03-26T05:51:20.663Z
+- commits:
     - subject: Update dependency @balena/lint to v8
       hash: 19b0a505856a7877824a61fe388aa10e4a5c5c2e
       body: |
