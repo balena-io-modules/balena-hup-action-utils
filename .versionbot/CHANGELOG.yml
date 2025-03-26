@@ -1,4 +1,25 @@
 - commits:
+    - subject: Update dependency @balena/lint to v9
+      hash: 40c98513b72400e122caa0e58e6ee89a3cd5ada5
+      body: |
+        Update @balena/lint from 8.2.8 to 9.1.4
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Update TypeScript to 5.8.2
+      hash: 764212235d544beef7e496d7d45a24796dfe6319
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+  version: 6.2.5
+  title: ""
+  date: 2025-03-26T09:09:40.877Z
+- commits:
     - subject: Update dependency balena-semver to v3
       hash: 07a5838fa02b4df7c43b59db94e1d9f96c234e07
       body: |
