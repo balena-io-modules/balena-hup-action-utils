@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency @types/chai-as-promised to v8
+      hash: aee74f9bc45bfbbf61b9f566e5ff7aea2db72b9f
+      body: |
+        Update @types/chai-as-promised from 7.1.8 to 8.0.2
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 6.2.7
+  title: ""
+  date: 2025-03-27T07:07:02.767Z
+- commits:
     - subject: Update dependency mocha to v11
       hash: 24ead6e4ac3ed677121baf24574cc3335609ba3e
       body: |
