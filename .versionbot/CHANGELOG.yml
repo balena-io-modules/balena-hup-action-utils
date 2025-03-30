@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency rimraf to v6
+      hash: 58ab869ae804953199007293728a2d40ac892b93
+      body: |
+        Update rimraf from 5.0.10 to 6.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 6.2.8
+  title: ""
+  date: 2025-03-30T00:09:15.054Z
+- commits:
     - subject: Update dependency @types/chai-as-promised to v8
       hash: aee74f9bc45bfbbf61b9f566e5ff7aea2db72b9f
       body: |
