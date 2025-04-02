@@ -21,7 +21,7 @@
     "test:browser": "karma start",
     "test:ts-compatibility": "npx -p typescript@~5.3.3 tsc --noEmit --project ./tsconfig.dist.json",
     "test": "npm run build && npm run test:ts-compatibility && npm run test:node && npm run test:browser",
-    "prepare": "husky install"
+    "prepare": "husky"
   },
   "repository": {
     "type": "git",
@@ -45,7 +45,7 @@
     "@types/mocha": "^10.0.6",
     "balena-config-karma": "^4.0.2",
     "chai": "^4.3.10",
-    "husky": "^8.0.3",
+    "husky": "^9.0.0",
     "karma": "^6.4.2",
     "lint-staged": "^15.2.0",
     "mocha": "^11.0.0",
