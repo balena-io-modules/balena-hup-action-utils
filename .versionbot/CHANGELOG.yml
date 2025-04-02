@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency husky to v9
+      hash: f315c3a164ae446027f260759a7d51fc2f126026
+      body: |
+        Update husky from 8.0.3 to 9.1.7
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 6.2.9
+  title: ""
+  date: 2025-04-02T14:08:03.923Z
+- commits:
     - subject: Update dependency rimraf to v6
       hash: 58ab869ae804953199007293728a2d40ac892b93
       body: |
