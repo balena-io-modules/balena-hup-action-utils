@@ -45,8 +45,6 @@ export class HUPActionHelper {
 	 * @description Returns the resinhup type based on device type, current and target balenaOS versions
 	 *
 	 *  Currently available types are:
-	 *   - resinhup11
-	 *   - resinhup12
 	 *   - balenahup
 	 *   - takeover
 	 *
@@ -102,31 +100,12 @@ export class HUPActionHelper {
 			throw new HUPActionError('Current OS version matches Target OS version');
 		}
 
-		const fromMajor = currentVersionParsed.major;
-		const toMajor = targetVersionParsed.major;
-		let actionName: ActionName;
-		if (fromMajor === 1) {
-			switch (toMajor) {
-				case 1:
-					actionName = 'resinhup11';
-					break;
-				case 2:
-					actionName = 'resinhup12';
-					break;
-				default:
-					throw new HUPActionError(
-						`This update request cannot be performed from ${currentVersion} to ${targetVersion}`,
-					);
-			}
-		} else {
-			// actionName may change below to 'takeover'
-			actionName = 'balenahup';
-		}
-
 		const { actionsConfig } = this;
 		const defaultActions = actionsConfig.deviceTypesDefaults;
 		const deviceActions = actionsConfig.deviceTypes[deviceType] ?? {};
 
+		// actionName may change below to 'takeover'
+		let actionName: ActionName = 'balenahup';
 		if (
 			defaultActions[actionName] == null &&
 			deviceActions[actionName] == null
@@ -184,7 +163,7 @@ export class HUPActionHelper {
 				bSemver.lt(noVariantVersion, minTakeoverVersion) &&
 				bSemver.gte(targetVersion, minTakeoverVersion)
 			) {
-				return 'takeover';
+				actionName = 'takeover';
 			}
 		}
 

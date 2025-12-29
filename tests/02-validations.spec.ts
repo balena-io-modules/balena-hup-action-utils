@@ -1,12 +1,6 @@
 import { expect } from 'chai';
 import { HUPActionHelper } from '../lib/index';
 
-const SPECIAL_BEAGLEBONE_DEVICES = [
-	'beaglebone-black',
-	'beaglebone-green',
-	'beaglebone-green-wifi',
-];
-
 describe('BalenaHupActionUtils', () => {
 	let hupActionHelper: HUPActionHelper;
 
@@ -150,282 +144,70 @@ describe('BalenaHupActionUtils', () => {
 				),
 			).to.equal(false);
 
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'non-hup-able-device-type',
+					'1.30.1',
+					'2.16.0+rev1',
+				),
+			).to.equal(false);
+
 			// On version 2.x and above all device types must be supported
 		});
 
 		describe('v1 -> v1', () => {
-			it('Should return false when hup is not supported', () => {
-				['artik530', 'beaglebone-pocket'].forEach((deviceType) => {
-					expect(
-						hupActionHelper.isSupportedOsUpdate(deviceType, '1.7.0', '1.26.0'),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(deviceType, '1.8.0', '1.25.0'),
-					).to.equal(false);
-				});
-			});
-
-			it('Should return false when hup between the provided versions is not supported', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
-					expect(
-						hupActionHelper.isSupportedOsUpdate(deviceType, '1.7.0', '1.26.0'),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(deviceType, '1.8.0', '1.25.0'),
-					).to.equal(false);
-				});
-			});
-
-			it('Should return true when device specific v1 -> v1 hup is supported', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
-					expect(
-						hupActionHelper.isSupportedOsUpdate(deviceType, '1.8.0', '1.26.0'),
-					).to.equal(true);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(deviceType, '1.9.0', '1.27.0'),
-					).to.equal(true);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(deviceType, '1.26.0', '1.27.0'),
-					).to.equal(true);
-				});
+			it('Should return false', () => {
+				for (const deviceType of [
+					'artik530',
+					'beaglebone-pocket',
+					'raspberry-pi',
+					'raspberrypi3',
+				]) {
+					for (const [from, to] of [
+						['1.7.0', '1.26.0'],
+						['1.8.0', '1.25.0'],
+						['1.8.0', '1.26.0'],
+						['1.9.0', '1.27.0'],
+						['1.26.0', '1.27.0'],
+					]) {
+						expect(
+							hupActionHelper.isSupportedOsUpdate(deviceType, from, to),
+						).to.equal(false);
+					}
+				}
 			});
 		});
 
 		describe('v1 -> v2', () => {
-			it('Should return false when hup is not supported', () => {
-				['artik530'].forEach((deviceType) => {
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.7.0',
-							'2.3.0+rev1',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.1.0+rev1',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.2.0+rev0',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.5.0+rev1',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.5.1+rev0',
-						),
-					).to.equal(false);
-
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.5.1+rev1',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.30.1',
-							'2.5.1+rev1',
-						),
-					).to.equal(false);
-				});
-			});
-
-			it('Should return false when hup between the provided versions is not supported', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.7.0',
-							'2.3.0+rev1',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.1.0+rev1',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.2.0+rev0',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.5.1+rev1',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.5.1+rev2',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.5.2+rev1',
-						),
-					).to.equal(false);
-				});
-			});
-
-			it('Should return false when hup between the provided versions is not supported for special device types', () => {
-				SPECIAL_BEAGLEBONE_DEVICES.forEach((deviceType) => {
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.7.0',
-							'2.3.0+rev1',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.3.0+rev1',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.30.0',
-							'2.3.0+rev1',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.30.1',
-							'2.1.0+rev1',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.30.1',
-							'2.2.0+rev0',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.30.1',
-							'2.5.1+rev1',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.30.1',
-							'2.5.1+rev2',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.30.1',
-							'2.5.2+rev1',
-						),
-					).to.equal(false);
-				});
-			});
-
-			it('Should return true for supported hup versions', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.2.0+rev1',
-						),
-					).to.equal(true);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.3.0+rev1',
-						),
-					).to.equal(true);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.8.0',
-							'2.5.0+rev1',
-						),
-					).to.equal(true);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.26.0',
-							'2.2.0+rev1',
-						),
-					).to.equal(true);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.26.0',
-							'2.3.0+rev1',
-						),
-					).to.equal(true);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.26.0',
-							'2.5.0+rev1',
-						),
-					).to.equal(true);
-				});
-			});
-
-			it('Should return true for supported hup versions for special device types', () => {
-				SPECIAL_BEAGLEBONE_DEVICES.forEach((deviceType) => {
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.30.1',
-							'2.2.0+rev1',
-						),
-					).to.equal(true);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.30.1',
-							'2.3.0+rev1',
-						),
-					).to.equal(true);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'1.30.1',
-							'2.5.0+rev1',
-						),
-					).to.equal(true);
-				});
+			it('Should return false', () => {
+				for (const deviceType of [
+					'artik530',
+					'beaglebone-pocket',
+					'raspberry-pi',
+					'raspberrypi3',
+					'beaglebone-black',
+					'beaglebone-green',
+					'beaglebone-green-wifi',
+				]) {
+					for (const [from, to] of [
+						['1.7.0', '2.3.0+rev1'],
+						['1.8.0', '2.3.0+rev1'],
+						['1.8.0', '2.5.1+rev0'],
+						['1.8.0', '2.5.2+rev1'],
+						['1.26.0', '2.2.0+rev1'],
+						['1.26.0', '2.3.0+rev1'],
+						['1.26.0', '2.5.0+rev1'],
+						['1.26.0', '2.35.0+rev1'],
+						['1.30.1', '2.3.0+rev1'],
+						['1.30.1', '2.5.0+rev1'],
+						['1.30.1', '2.5.2+rev1'],
+						['1.30.1', '2.35.2+rev1'],
+					]) {
+						expect(
+							hupActionHelper.isSupportedOsUpdate(deviceType, from, to),
+						).to.equal(false);
+					}
+				}
 			});
 		});
 
