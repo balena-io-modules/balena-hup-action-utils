@@ -20,17 +20,24 @@ describe('BalenaHupActionUtils', () => {
 			expect(() =>
 				hupActionHelper.getHUPActionType(
 					'raspberry-pi',
-					'2.9.6+rev2.prod',
+					'2.19.6.7',
+					'2.29.2+rev1.prod',
+				),
+			).to.throw('Invalid current balenaOS version');
+			expect(() =>
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.19.6+rev2.prod',
 					'2.29.2.3',
 				),
 			).to.throw('Invalid target balenaOS version');
 		});
 
-		it('Should not allow upgrades different .dev/.prod variants', () => {
+		it('Should not allow upgrades between .dev & .prod variants', () => {
 			expect(() =>
 				hupActionHelper.getHUPActionType(
 					'raspberry-pi',
-					'2.9.6+rev2.dev',
+					'2.19.6+rev2.dev',
 					'2.29.2+rev1.prod',
 				),
 			).to.throw(
@@ -39,7 +46,7 @@ describe('BalenaHupActionUtils', () => {
 			expect(() =>
 				hupActionHelper.getHUPActionType(
 					'raspberry-pi',
-					'2.9.6+rev2.prod',
+					'2.19.6+rev2.prod',
 					'2.29.2+rev1.dev',
 				),
 			).to.throw(
@@ -51,7 +58,7 @@ describe('BalenaHupActionUtils', () => {
 			expect(
 				hupActionHelper.getHUPActionType(
 					'raspberry-pi',
-					'2.9.6+rev2.dev',
+					'2.14.6+rev2.dev',
 					'2.29.2+rev1.dev',
 				),
 			).to.equal('balenahup');
@@ -94,7 +101,7 @@ describe('BalenaHupActionUtils', () => {
 			expect(
 				hupActionHelper.getHUPActionType(
 					'raspberry-pi',
-					'2.9.6+rev2.prod',
+					'2.14.6+rev2.prod',
 					'2.29.2-1234+rev1',
 				),
 			).to.equal('balenahup');
@@ -104,7 +111,7 @@ describe('BalenaHupActionUtils', () => {
 			expect(
 				hupActionHelper.getHUPActionType(
 					'raspberry-pi',
-					'2.9.6-1234+rev1',
+					'2.14.6-1234+rev1',
 					'2.29.2+rev1.prod',
 				),
 			).to.equal('balenahup');
@@ -145,6 +152,13 @@ describe('BalenaHupActionUtils', () => {
 					'2.9.6+rev2.prod',
 				),
 			).to.throw('OS downgrades are not allowed');
+			expect(() =>
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.29.2+rev1.prod',
+					'2.19.6+rev2.prod',
+				),
+			).to.throw('OS downgrades are not allowed');
 		});
 
 		it('Should not allow downgrades between pre-release versions', () => {
@@ -153,6 +167,13 @@ describe('BalenaHupActionUtils', () => {
 					'raspberry-pi',
 					'2.29.2-1234+rev1.prod',
 					'2.9.6-1234+rev2.prod',
+				),
+			).to.throw('OS downgrades are not allowed');
+			expect(() =>
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.29.2-1234+rev1.prod',
+					'2.19.6-1234+rev2.prod',
 				),
 			).to.throw('OS downgrades are not allowed');
 			expect(() =>
@@ -172,6 +193,13 @@ describe('BalenaHupActionUtils', () => {
 					'2.9.6+rev2.prod',
 				),
 			).to.throw('Current OS version matches Target OS version');
+			expect(() =>
+				hupActionHelper.getHUPActionType(
+					'raspberry-pi',
+					'2.19.6+rev2.prod',
+					'2.19.6+rev2.prod',
+				),
+			).to.throw('Current OS version matches Target OS version');
 		});
 
 		it('Should support unknown device types above the minimun supported versions', () => {
@@ -179,8 +207,8 @@ describe('BalenaHupActionUtils', () => {
 			expect(
 				hupActionHelper.getHUPActionType(
 					'unknonwn-new-device-type',
-					'2.14.0',
-					'2.16.0',
+					'2.14.0+rev1',
+					'2.16.0+rev1',
 				),
 			).to.equal('balenahup');
 		});
@@ -202,9 +230,21 @@ describe('BalenaHupActionUtils', () => {
 					]) {
 						expect(() =>
 							hupActionHelper.getHUPActionType(deviceType, from, to),
-						).to.throw(`Current OS version must be >= 2.0.0+rev1`);
+						).to.throw(`Current OS version must be >= 2.14.0+rev1`);
 					}
 				}
+
+				it('Should return balenahup when attempting v2 -> v3 hup', () => {
+					['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
+						expect(
+							hupActionHelper.getHUPActionType(
+								deviceType,
+								'2.14.6+rev2.prod',
+								'3.0.1+rev1.prod',
+							),
+						).to.equal('balenahup');
+					});
+				});
 			});
 		});
 
@@ -235,201 +275,136 @@ describe('BalenaHupActionUtils', () => {
 					]) {
 						expect(() =>
 							hupActionHelper.getHUPActionType(deviceType, from, to),
-						).to.throw(`Current OS version must be >= 2.0.0+rev1`);
+						).to.throw(`Current OS version must be >= 2.14.0+rev1`);
 					}
 				}
+
+				it('Should return balenahup when attempting v2 -> v3 hup', () => {
+					for (const deviceType of [
+						'artik530',
+						'beaglebone-pocket',
+						'raspberry-pi',
+						'raspberrypi3',
+						'beaglebone-black',
+						'beaglebone-green',
+						'beaglebone-green-wifi',
+					]) {
+						expect(
+							hupActionHelper.getHUPActionType(
+								deviceType,
+								'2.14.6+rev2.prod',
+								'3.0.1+rev1.prod',
+							),
+						).to.equal('balenahup');
+					}
+				});
 			});
 		});
 
 		describe('v2 -> v2', () => {
 			it('Should error when hup between the provided versions is not supported', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
+				for (const deviceType of [
+					'raspberry-pi',
+					'raspberrypi3',
+					'beaglebone-pocket',
+					'jetson-tx2',
+					'skx2',
+				]) {
 					expect(() =>
 						hupActionHelper.getHUPActionType(
 							deviceType,
-							'2.0.0+rev0.prod',
-							'2.2.0+rev1.prod',
+							'2.13.0+rev0.prod',
+							'2.16.0+rev1.prod',
 						),
-					).to.throw('Current OS version must be >= 2.0.0+rev1');
+					).to.throw('Current OS version must be >= 2.14.0+rev1');
 					expect(() =>
 						hupActionHelper.getHUPActionType(
 							deviceType,
-							'2.1.0+rev1.prod',
-							'2.1.1+rev1.prod',
+							'2.14.0+rev1.prod',
+							'2.14.1+rev1.prod',
 						),
-					).to.throw('Target OS version must be >= 2.2.0+rev1');
+					).to.throw('Target OS version must be >= 2.16.0+rev1');
 					expect(() =>
 						hupActionHelper.getHUPActionType(
 							deviceType,
-							'2.1.0+rev1.prod',
-							'2.2.0+rev0.prod',
+							'2.14.0+rev1.prod',
+							'2.16.0+rev0.prod',
 						),
-					).to.throw('Target OS version must be >= 2.2.0+rev1');
-				});
-			});
-
-			it('Should error when hup between the provided versions is not supported for special device types', () => {
-				['jetson-tx2', 'skx2'].forEach((deviceType) => {
-					expect(() =>
-						hupActionHelper.getHUPActionType(
-							deviceType,
-							'2.0.0+rev0.prod',
-							'2.2.0+rev1.prod',
-						),
-					).to.throw('Current OS version must be >= 2.7.4');
-					expect(() =>
-						hupActionHelper.getHUPActionType(
-							deviceType,
-							'2.1.0+rev1.prod',
-							'2.1.1+rev1.prod',
-						),
-					).to.throw('Current OS version must be >= 2.7.4');
-					expect(() =>
-						hupActionHelper.getHUPActionType(
-							deviceType,
-							'2.1.0+rev1.prod',
-							'2.2.0+rev0.prod',
-						),
-					).to.throw('Current OS version must be >= 2.7.4');
-					expect(() =>
-						hupActionHelper.getHUPActionType(
-							deviceType,
-							'2.7.3+rev1.prod',
-							'2.29.0+rev1.prod',
-						),
-					).to.throw('Current OS version must be >= 2.7.4');
-				});
+					).to.throw('Target OS version must be >= 2.16.0+rev1');
+				}
 			});
 
 			it('Should return balenahup for supported v2 -> v2 hup versions', () => {
-				['raspberry-pi', 'raspberrypi3', 'beaglebone-pocket'].forEach(
-					(deviceType) => {
-						expect(
-							hupActionHelper.getHUPActionType(
-								deviceType,
-								'2.0.0+rev1.prod',
-								'2.2.0+rev1.prod',
-							),
-						).to.equal('balenahup');
-						expect(
-							hupActionHelper.getHUPActionType(
-								deviceType,
-								'2.1.0+rev1.prod',
-								'2.2.0+rev1.prod',
-							),
-						).to.equal('balenahup');
-						expect(
-							hupActionHelper.getHUPActionType(
-								deviceType,
-								'2.0.0+rev1.prod',
-								'2.29.2+rev1.prod',
-							),
-						).to.equal('balenahup');
-						expect(
-							hupActionHelper.getHUPActionType(
-								deviceType,
-								'2.9.6+rev2.prod',
-								'2.29.2+rev1.prod',
-							),
-						).to.equal('balenahup');
-					},
-				);
-			});
-
-			it('Should return balenahup for supported v2 -> v2 hup versions for special device types', () => {
-				['jetson-tx2', 'skx2'].forEach((deviceType) => {
+				for (const deviceType of [
+					'raspberry-pi',
+					'raspberrypi3',
+					'beaglebone-pocket',
+					'jetson-tx2',
+					'skx2',
+				]) {
 					expect(
 						hupActionHelper.getHUPActionType(
 							deviceType,
-							'2.7.4',
-							'2.29.0+rev1.prod',
+							'2.14.0+rev1.prod',
+							'2.16.0+rev1.prod',
 						),
 					).to.equal('balenahup');
 					expect(
 						hupActionHelper.getHUPActionType(
 							deviceType,
-							'2.7.4+rev1.prod',
-							'2.29.0+rev1.prod',
+							'2.15.0+rev1.prod',
+							'2.16.0+rev1.prod',
 						),
 					).to.equal('balenahup');
 					expect(
 						hupActionHelper.getHUPActionType(
 							deviceType,
-							'2.7.4+rev1.prod',
-							'2.7.8+rev1.prod',
-						),
-					).to.equal('balenahup');
-					expect(
-						hupActionHelper.getHUPActionType(
-							deviceType,
-							'2.9.6+rev2.prod',
+							'2.14.0+rev1.prod',
 							'2.29.2+rev1.prod',
 						),
 					).to.equal('balenahup');
-				});
+					expect(
+						hupActionHelper.getHUPActionType(
+							deviceType,
+							'2.19.6+rev2.prod',
+							'2.29.2+rev1.prod',
+						),
+					).to.equal('balenahup');
+				}
 			});
 		});
 
 		describe('v2 -> ESR', () => {
 			it('Should return balenahup for supported v2 -> ESR hup versions', () => {
-				['raspberry-pi', 'raspberrypi3', 'beaglebone-pocket'].forEach(
-					(deviceType) => {
-						expect(
-							hupActionHelper.getHUPActionType(
-								deviceType,
-								'2.0.0+rev1.prod',
-								'2019.07.0.prod',
-							),
-						).to.equal('balenahup');
-						expect(
-							hupActionHelper.getHUPActionType(
-								deviceType,
-								'2.1.0+rev1.prod',
-								'2019.07.0.prod',
-							),
-						).to.equal('balenahup');
-						expect(
-							hupActionHelper.getHUPActionType(
-								deviceType,
-								'2.0.0+rev1.prod',
-								'2019.07.0.prod',
-							),
-						).to.equal('balenahup');
-						expect(
-							hupActionHelper.getHUPActionType(
-								deviceType,
-								'2.9.6+rev2.prod',
-								'2019.07.0.prod',
-							),
-						).to.equal('balenahup');
-					},
-				);
-			});
-
-			it('Should return balenahup for supported v2 -> ESR hup versions for special device types', () => {
-				['jetson-tx2', 'skx2'].forEach((deviceType) => {
+				for (const deviceType of [
+					'raspberry-pi',
+					'raspberrypi3',
+					'beaglebone-pocket',
+					'jetson-tx2',
+					'skx2',
+				]) {
 					expect(
 						hupActionHelper.getHUPActionType(
 							deviceType,
-							'2.7.4',
+							'2.14.0+rev1.prod',
 							'2019.07.0.prod',
 						),
 					).to.equal('balenahup');
 					expect(
 						hupActionHelper.getHUPActionType(
 							deviceType,
-							'2.7.4+rev1.prod',
+							'2.16.0+rev1.prod',
 							'2019.07.0.prod',
 						),
 					).to.equal('balenahup');
 					expect(
 						hupActionHelper.getHUPActionType(
 							deviceType,
-							'2.9.6+rev2.prod',
+							'2.19.6+rev2.prod',
 							'2019.07.0.prod',
 						),
 					).to.equal('balenahup');
-				});
+				}
 			});
 		});
 
@@ -511,16 +486,28 @@ describe('BalenaHupActionUtils', () => {
 						'1.30.1',
 						'3.0.1+rev1.prod',
 					),
-				).to.throw(`Current OS version must be >= 2.0.0+rev1`);
+				).to.throw(`Current OS version must be >= 2.14.0+rev1`);
 			});
 		});
 
-		it('Should return balenahup when attempting v2 -> v3 hup', () => {
+		it('Should error when attempting v2 -> v3 hup from an unsupported current OS version', () => {
+			['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
+				expect(() =>
+					hupActionHelper.getHUPActionType(
+						deviceType,
+						'2.9.6+rev2.prod',
+						'3.0.1+rev1.prod',
+					),
+				).to.throw(`Current OS version must be >= 2.14.0+rev1`);
+			});
+		});
+
+		it('Should return balenahup when attempting v2 -> v3 hup from a supported current OS version', () => {
 			['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
 				expect(
 					hupActionHelper.getHUPActionType(
 						deviceType,
-						'2.9.6+rev2.prod',
+						'2.14.6+rev2.prod',
 						'3.0.1+rev1.prod',
 					),
 				).to.equal('balenahup');

@@ -20,17 +20,7 @@ describe('BalenaHupActionUtils', () => {
 			expect(
 				hupActionHelper.isSupportedOsUpdate(
 					'raspberry-pi',
-					'2.9.6+rev2.prod',
-					'2.29.2.3',
-				),
-			).to.equal(false);
-		});
-
-		it('Should not allow .dev versions', () => {
-			expect(
-				hupActionHelper.isSupportedOsUpdate(
-					'raspberry-pi',
-					'2.9.6+rev2.dev',
+					'2.19.6.7',
 					'2.29.2+rev1.prod',
 				),
 			).to.equal(false);
@@ -38,16 +28,42 @@ describe('BalenaHupActionUtils', () => {
 				hupActionHelper.isSupportedOsUpdate(
 					'raspberry-pi',
 					'2.9.6+rev2.prod',
+					'2.29.2.3',
+				),
+			).to.equal(false);
+		});
+
+		it('Should not allow upgrades between .dev & .prod variants', () => {
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'raspberry-pi',
+					'2.19.6+rev2.dev',
+					'2.29.2+rev1.prod',
+				),
+			).to.equal(false);
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'raspberry-pi',
+					'2.19.6+rev2.prod',
 					'2.29.2+rev1.dev',
 				),
 			).to.equal(false);
 		});
 
+		it('Should allow .dev version updates', () => {
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'raspberry-pi',
+					'2.14.6+rev2.dev',
+					'2.29.2+rev1.dev',
+				),
+			).to.equal(true);
+		});
 		it('Should allow upgrades from a finalized to a pre-release version', () => {
 			expect(
 				hupActionHelper.isSupportedOsUpdate(
 					'raspberry-pi',
-					'2.9.6+rev2.prod',
+					'2.14.6+rev2.prod',
 					'2.29.2-1234+rev1',
 				),
 			).to.equal(true);
@@ -57,7 +73,7 @@ describe('BalenaHupActionUtils', () => {
 			expect(
 				hupActionHelper.isSupportedOsUpdate(
 					'raspberry-pi',
-					'2.9.6-1234+rev1',
+					'2.14.6-1234+rev1',
 					'2.29.2+rev1.prod',
 				),
 			).to.equal(true);
@@ -98,6 +114,13 @@ describe('BalenaHupActionUtils', () => {
 					'2.9.6+rev2.prod',
 				),
 			).to.equal(false);
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'raspberry-pi',
+					'2.29.2+rev1.prod',
+					'2.19.6+rev2.prod',
+				),
+			).to.equal(false);
 		});
 
 		it('Should not allow downgrades between pre-release versions', () => {
@@ -106,6 +129,13 @@ describe('BalenaHupActionUtils', () => {
 					'raspberry-pi',
 					'2.29.2-1234+rev1.prod',
 					'2.9.6-1234+rev2.prod',
+				),
+			).to.equal(false);
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'raspberry-pi',
+					'2.29.2-1234+rev1.prod',
+					'2.19.6-1234+rev2.prod',
 				),
 			).to.equal(false);
 			expect(
@@ -125,34 +155,24 @@ describe('BalenaHupActionUtils', () => {
 					'2.9.6+rev2.prod',
 				),
 			).to.equal(false);
+			expect(
+				hupActionHelper.isSupportedOsUpdate(
+					'raspberry-pi',
+					'2.19.6+rev2.prod',
+					'2.19.6+rev2.prod',
+				),
+			).to.equal(false);
 		});
 
-		it('Should return false when the device type does not support hup at all', () => {
+		it('Should support unknown device types above the minimun supported versions', () => {
+			// On version 2.x and above all device types must be supported
 			expect(
 				hupActionHelper.isSupportedOsUpdate(
-					'non-hup-able-device-type',
-					'1.8.0',
-					'1.26.0',
-				),
-			).to.equal(false);
-
-			expect(
-				hupActionHelper.isSupportedOsUpdate(
-					'non-hup-able-device-type',
-					'1.30.1',
-					'2.2.0+rev1',
-				),
-			).to.equal(false);
-
-			expect(
-				hupActionHelper.isSupportedOsUpdate(
-					'non-hup-able-device-type',
-					'1.30.1',
+					'unknonwn-new-device-type',
+					'2.14.0+rev1',
 					'2.16.0+rev1',
 				),
-			).to.equal(false);
-
-			// On version 2.x and above all device types must be supported
+			).to.equal(true);
 		});
 
 		describe('v1 -> v1', () => {
@@ -213,128 +233,74 @@ describe('BalenaHupActionUtils', () => {
 
 		describe('v2 -> v2', () => {
 			it('Should return false when hup between the provided versions is not supported', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
+				for (const deviceType of [
+					'raspberry-pi',
+					'raspberrypi3',
+					'beaglebone-pocket',
+					'jetson-tx2',
+					'skx2',
+				]) {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
-							'2.0.0+rev0.prod',
-							'2.2.0+rev1.prod',
+							'2.13.0+rev0.prod',
+							'2.16.0+rev1.prod',
 						),
 					).to.equal(false);
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
-							'2.1.0+rev1.prod',
-							'2.1.1+rev1.prod',
+							'2.14.0+rev1.prod',
+							'2.14.1+rev1.prod',
 						),
 					).to.equal(false);
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
-							'2.1.0+rev1.prod',
-							'2.2.0+rev0.prod',
+							'2.14.0+rev1.prod',
+							'2.16.0+rev0.prod',
 						),
 					).to.equal(false);
-				});
-			});
-
-			it('Should return false when hup between the provided versions is not supported for special device types', () => {
-				['jetson-tx2', 'skx2'].forEach((deviceType) => {
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'2.0.0+rev0.prod',
-							'2.2.0+rev1.prod',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'2.1.0+rev1.prod',
-							'2.1.1+rev1.prod',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'2.1.0+rev1.prod',
-							'2.2.0+rev0.prod',
-						),
-					).to.equal(false);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'2.7.3+rev1.prod',
-							'2.29.0+rev1.prod',
-						),
-					).to.equal(false);
-				});
+				}
 			});
 
 			it('Should return true for supported v2 -> v2 hup versions', () => {
-				['raspberry-pi', 'raspberrypi3'].forEach((deviceType) => {
+				for (const deviceType of [
+					'raspberry-pi',
+					'raspberrypi3',
+					'beaglebone-pocket',
+					'jetson-tx2',
+					'skx2',
+				]) {
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
-							'2.0.0+rev1.prod',
-							'2.2.0+rev1.prod',
+							'2.14.0+rev1.prod',
+							'2.16.0+rev1.prod',
 						),
 					).to.equal(true);
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
-							'2.1.0+rev1.prod',
-							'2.2.0+rev1.prod',
+							'2.15.0+rev1.prod',
+							'2.16.0+rev1.prod',
 						),
 					).to.equal(true);
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
-							'2.0.0+rev1.prod',
+							'2.14.0+rev1.prod',
 							'2.29.2+rev1.prod',
 						),
 					).to.equal(true);
 					expect(
 						hupActionHelper.isSupportedOsUpdate(
 							deviceType,
-							'2.9.6+rev2.prod',
+							'2.19.6+rev2.prod',
 							'2.29.2+rev1.prod',
 						),
 					).to.equal(true);
-				});
-			});
-
-			it('Should return true for supported v1 -> v2 hup versions for special device types', () => {
-				['jetson-tx2', 'skx2'].forEach((deviceType) => {
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'2.7.4',
-							'2.29.0+rev1.prod',
-						),
-					).to.equal(true);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'2.7.4+rev1.prod',
-							'2.29.0+rev1.prod',
-						),
-					).to.equal(true);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'2.7.4+rev1.prod',
-							'2.7.8+rev1.prod',
-						),
-					).to.equal(true);
-					expect(
-						hupActionHelper.isSupportedOsUpdate(
-							deviceType,
-							'2.9.6+rev2.prod',
-							'2.29.2+rev1.prod',
-						),
-					).to.equal(true);
-				});
+				}
 			});
 		});
 
@@ -355,7 +321,7 @@ describe('BalenaHupActionUtils', () => {
 				expect(
 					hupActionHelper.isSupportedOsUpdate(
 						deviceType,
-						'2.9.6+rev2.prod',
+						'2.14.6+rev2.prod',
 						'3.0.1+rev1.prod',
 					),
 				).to.equal(true);
