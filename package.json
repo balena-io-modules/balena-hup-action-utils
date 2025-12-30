@@ -5,8 +5,7 @@
   "main": "build/index.js",
   "types": "build/index.d.ts",
   "files": [
-    "build/",
-    "lib/"
+    "build/"
   ],
   "engines": {
     "node": ">=18.0"
