@@ -1,4 +1,77 @@
 - commits:
+    - subject: Update minimum supported TypeScript to 5.9.3
+      hash: 294ef98051a1eb2dbf44730f87459cb48e61da0f
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Update dependency balena-semver to v4
+      hash: d6a9adc7b5df90b8b834df68b18e2b479b3725c5
+      body: |
+        Update balena-semver from 3.0.10 to 4.0.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+    - subject: "tsconfig: Change the compilation target to es2017 with es2019 lib"
+      hash: d79167244ce721fecb6a96155f8682cb4044fe99
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Drop support for nodejs <20.12.0
+      hash: e2a1e5b8e5a8d4f6c3d827aa6aa6e373f7f73797
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Explicitly mark the package.json as type commonjs
+      hash: 67748cbfd2c43530f2fb80abc345b17b59f1e284
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Stop publishing the lib folder
+      hash: a36284c657e66977996b5a493765be35bdb71441
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Drop support for OS Upgrades from OS < 2.14.0 and target OS < 2.16.0
+      hash: 50c711e7a0aa9cc9b9472498110e46b018ac7e68
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+        See: https://github.com/balena-os/balenahup/pull/422
+        see: https://github.com/balena-os/balenahup/pull/422
+      author: Thodoris Greasidis
+      nested: []
+    - subject: Drop support for OS Upgrades between v1 & v2 balenaOS
+      hash: 5f033501d5d6a8f8c4b3ae27efa4b201dae2f893
+      body: ""
+      footer:
+        Change-type: major
+        change-type: major
+        See: https://github.com/balena-os/balenahup/pull/422
+        see: https://github.com/balena-os/balenahup/pull/422
+      author: Thodoris Greasidis
+      nested: []
+  version: 7.0.0
+  title: ""
+  date: 2026-01-19T16:14:57.792Z
+- commits:
     - subject: Update dependency lint-staged to v16
       hash: 6c7268fc019ed281688b76b8ce9578bf8ab869bb
       body: |
