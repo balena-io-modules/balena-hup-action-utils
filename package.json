@@ -54,7 +54,7 @@
     "typescript": "^5.8.2"
   },
   "dependencies": {
-    "balena-semver": "^3.0.0",
+    "balena-semver": "^4.0.1",
     "tslib": "^2.6.2",
     "typed-error": "^3.2.2"
   },
