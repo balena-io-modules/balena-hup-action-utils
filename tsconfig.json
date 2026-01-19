@@ -1,9 +1,13 @@
 {
   "compilerOptions": {
     "module": "commonjs",
-    "target": "es2015",
+    "target": "es2017",
+    "lib": [
+        "es2019"
+    ],
     "outDir": "build",
     "declaration": true,
+    "esModuleInterop": true,
     "importHelpers": true,
     "noImplicitAny": true,
     "noUnusedLocals": true,

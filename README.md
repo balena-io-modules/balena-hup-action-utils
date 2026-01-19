@@ -34,8 +34,8 @@ The module returns a class that you use to get an instance of the hup action hel
 ```js
 import { HUPActionHelper } from 'balena-hup-action-utils';
 const hupActionHelper = new HUPActionHelper();
-hupActionHelper.getHUPActionType('raspberrypi3', '2.0.0+rev1.prod', '2.2.0+rev1.prod');
-hupActionHelper.isSupportedOsUpdate('raspberrypi3', '2.0.0+rev1.prod', '2.2.0+rev1.prod');
+hupActionHelper.getHUPActionType('raspberrypi3', '2.14.0+rev1.prod', '2.16.0+rev1.prod');
+hupActionHelper.isSupportedOsUpdate('raspberrypi3', '2.14.0+rev1.prod', '2.16.0+rev1.prod');
 ```
 
 Support

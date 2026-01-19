@@ -2,5 +2,6 @@
 	"extends": "./tsconfig.json",
 	"include": [
 		"build/**/*.d.ts"
-	]
+	],
+	"exclude": []
 }
