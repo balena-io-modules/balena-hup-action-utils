@@ -19,7 +19,7 @@
     "prepack": "npm run build",
     "test:node": "mocha -r ts-node/register --reporter spec tests/**/*.spec.ts",
     "test:browser": "karma start",
-    "test:ts-compatibility": "npx -p typescript@~5.3.3 tsc --noEmit --project ./tsconfig.test-ts-compat.json",
+    "test:ts-compatibility": "npx -p typescript@~5.9.3 tsc --noEmit --project ./tsconfig.test-ts-compat.json",
     "test": "npm run build && npm run test:ts-compatibility && npm run test:node && npm run test:browser",
     "prepare": "husky"
   },
@@ -51,7 +51,7 @@
     "mocha": "^11.0.0",
     "rimraf": "^6.0.0",
     "ts-node": "^10.9.2",
-    "typescript": "^5.8.2"
+    "typescript": "^5.9.3"
   },
   "dependencies": {
     "balena-semver": "^4.0.1",
