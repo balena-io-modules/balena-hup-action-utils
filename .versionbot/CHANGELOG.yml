@@ -1,4 +1,18 @@
 - commits:
+    - subject: "Add id-token: write permission for NPM OIDC publishing"
+      hash: 3629981b24e66fe69d00857bd65119c63e3b267c
+      body: ""
+      footer:
+        Change-type: patch
+        change-type: patch
+        Signed-off-by: Kyle Harding <kyle@balena.io>
+        signed-off-by: Kyle Harding <kyle@balena.io>
+      author: Kyle Harding
+      nested: []
+  version: 7.0.1
+  title: ""
+  date: 2026-02-18T21:25:38.740Z
+- commits:
     - subject: Update minimum supported TypeScript to 5.9.3
       hash: 294ef98051a1eb2dbf44730f87459cb48e61da0f
       body: ""
