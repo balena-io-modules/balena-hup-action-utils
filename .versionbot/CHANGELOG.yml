@@ -1,4 +1,17 @@
 - commits:
+    - subject: Rename .lintstagedrc to .lintstagedrc.json
+      hash: 27fcbda5d8adf55396db60bb88b5a30c4d416a37
+      body: |
+        Rename in preparation for lint-staged v17
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: joshbwlng
+      nested: []
+  version: 7.0.20
+  title: ""
+  date: 2026-07-15T22:43:12.999Z
+- commits:
     - subject: Pin dependencies
       hash: af99e3d374f62a686de865c7fafa47e1c273a487
       body: |
