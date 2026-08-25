@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency typescript to v6
+      hash: f9dd24c27d3b29b3de57464c3a692fd0187d430b
+      body: |
+        Update typescript from 5.9.3 to 6.0.3
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 7.0.28
+  title: ""
+  date: 2026-08-25T16:56:16.561Z
+- commits:
     - subject: Update dependency flowzonify to v0.4.0
       hash: 282e887944c7982b610df86780170ecd4e951734
       body: |
