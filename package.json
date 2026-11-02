@@ -39,7 +39,7 @@
   },
   "homepage": "https://github.com/balena-io-modules/balena-hup-action-utils#readme",
   "devDependencies": {
-    "@balena/lint": "^9.4.6",
+    "@balena/lint": "^10.0.0",
     "@types/chai": "5.2.3",
     "@types/chai-as-promised": "8.0.2",
     "@types/mocha": "10.0.10",
