@@ -1,4 +1,17 @@
 - commits:
+    - subject: Update dependency lint-staged to v17.6.1
+      hash: 298ac2ea76b02b39e0ec385445863126e2b7e8a5
+      body: |
+        Update lint-staged from 17.6.0 to 17.6.1
+      footer:
+        Change-type: patch
+        change-type: patch
+      author: balena-renovate[bot]
+      nested: []
+  version: 7.0.37
+  title: ""
+  date: 2026-11-21T01:01:37.442Z
+- commits:
     - subject: Update dependency rimraf to v6.1.4
       hash: a836cdbf8c6be1b855f17161b38cde8928dcd87b
       body: |
